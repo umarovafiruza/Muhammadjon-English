@@ -13,10 +13,10 @@
 <meta property="og:title" content="Aloud — English Speaking Practice">
 <meta property="og:description" content="Read comforting reflections aloud at your own pace with smart teleprompter scrolling.">
 
-<!-- Modern Google Fonts (2 fonts: Plus Jakarta Sans for headings, Inter for interface & text) -->
+<!-- Modern Google Fonts: Inter (400, 500, 600, 700) + Plus Jakarta Sans (500, 600, 700, 800) -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
 
 <style>
 /* ---------------- CSS Custom Properties & Design System ---------------- */
@@ -48,8 +48,8 @@
 
   --shadow-sm: 0 1px 3px 0 rgba(15, 23, 42, 0.06), 0 1px 2px -1px rgba(15, 23, 42, 0.04);
   --shadow-md: 0 4px 6px -1px rgba(15, 23, 42, 0.07), 0 2px 4px -2px rgba(15, 23, 42, 0.05);
-  --shadow-lg: 0 12px 24px -4px rgba(15, 23, 42, 0.08), 0 4px 8px -2px rgba(15, 23, 42, 0.04);
-  --shadow-hover: 0 14px 28px -4px rgba(37, 99, 235, 0.12), 0 4px 10px -2px rgba(37, 99, 235, 0.06);
+  --shadow-lg: 0 16px 32px -4px rgba(15, 23, 42, 0.1), 0 6px 12px -2px rgba(15, 23, 42, 0.05);
+  --shadow-hover: 0 14px 28px -4px rgba(37, 99, 235, 0.14), 0 6px 12px -2px rgba(37, 99, 235, 0.08);
 
   --radius-sm: 8px;
   --radius-md: 12px;
@@ -90,8 +90,33 @@ body {
   color: var(--text);
 }
 
+body.in-reader {
+  background-color: #FFFFFF;
+}
+
+@media (min-width: 700px) {
+  body.in-reader {
+    background-color: var(--bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+}
+
 [hidden] {
   display: none !important;
+}
+
+/* ---------------- Focus Visible (Accessibility) ---------------- */
+.card:focus-visible,
+.btn:focus-visible,
+.filter-btn:focus-visible,
+.search-input:focus-visible,
+input[type=range]:focus-visible,
+.brand-link:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 3px;
 }
 
 /* ---------------- Typography & Buttons ---------------- */
@@ -171,7 +196,7 @@ button {
   position: sticky;
   top: 0;
   z-index: 40;
-  background: rgba(255, 255, 255, 0.85);
+  background: rgba(255, 255, 255, 0.88);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--border);
@@ -197,14 +222,14 @@ button {
 }
 
 .brand-icon {
-  width: 32px;
-  height: 32px;
-  border-radius: 9px;
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
   background: linear-gradient(135deg, #2563EB, #1D4ED8);
   display: grid;
   place-items: center;
   color: #FFFFFF;
-  box-shadow: 0 2px 5px rgba(37, 99, 235, 0.3);
+  box-shadow: 0 2px 6px rgba(37, 99, 235, 0.3);
 }
 
 .brand-icon svg {
@@ -215,8 +240,8 @@ button {
 
 .brand-text {
   font-family: var(--font-heading);
-  font-size: 19px;
-  font-weight: 700;
+  font-size: 20px;
+  font-weight: 800;
   letter-spacing: -0.03em;
   color: var(--text);
 }
@@ -229,7 +254,7 @@ button {
   background: var(--primary-light);
   color: var(--primary);
   border: 1px solid var(--primary-border);
-  padding: 2px 7px;
+  padding: 2px 8px;
   border-radius: var(--radius-full);
 }
 
@@ -246,11 +271,12 @@ button {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  background: var(--border-subtle);
+  background: var(--surface);
   border: 1px solid var(--border);
-  padding: 4px 12px;
+  padding: 5px 12px;
   border-radius: var(--radius-full);
   font-size: 12px;
+  box-shadow: var(--shadow-sm);
 }
 
 .stat-dot {
@@ -260,25 +286,23 @@ button {
   background: #10B981;
 }
 
-/* ---------------- Home Hero Section ---------------- */
+/* ---------------- Home Hero Section with Indigo Radial Light ---------------- */
 .home {
   max-width: 1120px;
   margin: 0 auto;
-  padding: 40px 24px 80px;
+  padding: 44px 24px 80px;
   width: 100%;
   flex: 1;
 }
 
 .hero {
   text-align: center;
-  max-width: 720px;
-  margin: 0 auto 48px;
-  animation: heroFadeIn 0.5s ease-out;
-}
-
-@keyframes heroFadeIn {
-  from { opacity: 0; transform: translateY(12px); }
-  to { opacity: 1; transform: translateY(0); }
+  max-width: 760px;
+  margin: 0 auto 36px;
+  padding: 28px 16px 12px;
+  position: relative;
+  border-radius: var(--radius-lg);
+  background: radial-gradient(circle at 50% 20%, rgba(37, 99, 235, 0.14) 0%, rgba(37, 99, 235, 0) 70%);
 }
 
 .hero-pill {
@@ -296,15 +320,16 @@ button {
 }
 
 .hero-title {
-  font-size: clamp(32px, 5.5vw, 50px);
+  font-size: clamp(32px, 5.5vw, 52px);
+  font-weight: 800;
   line-height: 1.15;
   letter-spacing: -0.035em;
   margin-bottom: 18px;
   color: var(--text);
 }
 
-.hero-title span {
-  background: linear-gradient(135deg, #2563EB, #1D4ED8);
+.hero-title .gradient-text {
+  background: linear-gradient(135deg, #2563EB 0%, #7C3AED 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -313,14 +338,14 @@ button {
   font-size: clamp(16px, 2.2vw, 19px);
   color: var(--text-secondary);
   line-height: 1.6;
-  margin-bottom: 28px;
+  margin-bottom: 24px;
 }
 
 .hero-features {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 16px;
+  gap: 14px;
   flex-wrap: wrap;
 }
 
@@ -345,15 +370,63 @@ button {
   flex-shrink: 0;
 }
 
+/* ---------------- Overall Progress Road Bar ---------------- */
+.progress-section {
+  max-width: 680px;
+  margin: 0 auto 36px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 14px 18px;
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition);
+}
+
+.progress-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.progress-title {
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.progress-pct {
+  color: var(--primary);
+  font-variant-numeric: tabular-nums;
+}
+
+.progress-bar-track {
+  width: 100%;
+  height: 6px;
+  background: var(--border-subtle);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #2563EB, #7C3AED);
+  border-radius: var(--radius-full);
+  transition: width 0.4s ease;
+}
+
 /* ---------------- Filter & Search Bar ---------------- */
 .filter-section {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 16px;
-  margin-bottom: 32px;
+  margin-bottom: 30px;
   flex-wrap: wrap;
-  padding: 6px;
+  padding: 8px;
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius-md);
@@ -384,6 +457,7 @@ button {
 .filter-btn.active {
   background: var(--primary);
   color: #FFFFFF;
+  box-shadow: 0 1px 3px rgba(37, 99, 235, 0.25);
 }
 
 .search-box {
@@ -423,11 +497,35 @@ button {
   pointer-events: none;
 }
 
-/* ---------------- Topics Cards Grid ---------------- */
+/* ---------------- Topics Cards Grid (1 col mobile, 2 col tablet, 3 col desktop) ---------------- */
 .topics-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(min(100%, 330px), 1fr));
+  grid-template-columns: 1fr;
   gap: 22px;
+}
+
+@media (min-width: 640px) {
+  .topics-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .topics-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Card Animation (Fade-in-up with stagger) */
+@keyframes cardFadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .card {
@@ -442,6 +540,11 @@ button {
   box-shadow: var(--shadow-sm);
   position: relative;
   overflow: hidden;
+  user-select: none;
+}
+
+.card-animate {
+  animation: cardFadeInUp 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 .card:hover {
@@ -454,23 +557,35 @@ button {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 14px;
+  margin-bottom: 12px;
 }
 
-.card-number {
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--muted);
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
+.card-num-big {
+  font-family: var(--font-heading);
+  font-size: 26px;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: #93C5FD;
+  transition: color 0.2s ease;
+}
+
+.card:hover .card-num-big {
+  color: var(--primary);
+}
+
+.card-badges {
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
 
 .level-badge {
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 700;
-  padding: 2px 8px;
+  padding: 3px 10px;
   border-radius: var(--radius-full);
-  letter-spacing: 0.04em;
+  letter-spacing: 0.03em;
 }
 
 .level-badge.A1 {
@@ -489,6 +604,19 @@ button {
   background: var(--level-b1-bg);
   color: var(--level-b1-text);
   border: 1px solid var(--level-b1-border);
+}
+
+.badge-done {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+  background: #ECFDF5;
+  color: #059669;
+  border: 1px solid #A7F3D0;
 }
 
 .card-title {
@@ -524,27 +652,44 @@ button {
 .card-meta-info {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
   font-size: 12px;
   color: var(--muted);
   font-weight: 500;
 }
 
-.card-cta {
-  font-size: 13px;
-  font-weight: 600;
+.card-circle-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--primary-light);
   color: var(--primary);
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  transition: gap 0.2s ease;
+  border: 1px solid var(--primary-border);
+  display: grid;
+  place-items: center;
+  transition: var(--transition);
+  flex-shrink: 0;
 }
 
-.card:hover .card-cta {
-  gap: 8px;
+.card-circle-btn svg {
+  width: 16px;
+  height: 16px;
+  transition: transform 0.2s ease;
 }
 
-/* ---------------- Reader View (360px Narrow Preserved Layout) ---------------- */
+.card:hover .card-circle-btn {
+  background: var(--primary);
+  color: #FFFFFF;
+  border-color: var(--primary);
+  transform: scale(1.06);
+  box-shadow: 0 4px 10px rgba(37, 99, 235, 0.35);
+}
+
+.card:hover .card-circle-btn svg {
+  transform: translateX(2px);
+}
+
+/* ---------------- Reader View (Strictly Preserved 360px Narrow Mechanics) ---------------- */
 .reader {
   display: flex;
   flex-direction: column;
@@ -555,6 +700,18 @@ button {
   margin: 0 auto;
   padding: 16px 16px 20px;
   background: #FFFFFF;
+}
+
+@media (min-width: 700px) {
+  .reader {
+    max-width: 380px;
+    height: min(780px, calc(100vh - 48px));
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    box-shadow: var(--shadow-lg);
+    background: #FFFFFF;
+    margin: auto;
+  }
 }
 
 .reader-header {
@@ -671,11 +828,12 @@ button {
   text-align: center;
 }
 
+/* Responsive 4-words text container that fits 320px phone comfortably */
 .text-content {
   margin: 0 auto;
   font-weight: 500;
-  font-size: clamp(19px, 4.4vw, 22px);
-  line-height: 1.85;
+  font-size: clamp(15px, 4.2vw, 21px);
+  line-height: 1.8;
   letter-spacing: -0.01em;
   max-width: 360px;
   text-align: center;
@@ -690,8 +848,26 @@ button {
 .w {
   display: inline-block;
   color: var(--text);
-  margin: 0 3px;
+  margin: 0 2.5px;
+  cursor: pointer;
   transition: color 0.15s ease;
+}
+
+.w:hover {
+  color: var(--primary);
+}
+
+@media (max-width: 360px) {
+  .text-content {
+    font-size: 14px;
+    line-height: 1.75;
+  }
+  .w {
+    margin: 0 1.5px;
+  }
+  .scroller {
+    padding: 0 4px 70vh;
+  }
 }
 
 /* Prompt Banner / Countdown Overlay */
@@ -714,7 +890,7 @@ button {
 
 .ov-prompt {
   font-family: var(--font-heading);
-  font-size: clamp(26px, 6vw, 36px);
+  font-size: clamp(24px, 5.5vw, 34px);
   font-weight: 700;
   letter-spacing: -0.025em;
   line-height: 1.25;
@@ -895,10 +1071,23 @@ input[type=range]::-moz-range-thumb {
   flex-wrap: wrap;
 }
 
+/* ---------------- Reduced Motion ---------------- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+  .card-animate {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
 /* ---------------- Responsive Tweaks ---------------- */
 @media (max-width: 640px) {
   .hero {
-    margin-bottom: 32px;
+    margin-bottom: 24px;
+    padding: 16px 12px;
   }
   .filter-section {
     flex-direction: column;
@@ -919,7 +1108,7 @@ input[type=range]::-moz-range-thumb {
 <!-- Modern Navigation -->
 <nav class="navbar" id="navbar">
   <div class="nav-container">
-    <a href="#" class="nav-brand" id="brandLink">
+    <a href="#" class="nav-brand brand-link" id="brandLink">
       <div class="brand-icon" aria-hidden="true">
         <svg viewBox="0 0 24 24"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3zm5.3 7.3a1 1 0 0 0-2 0A5.3 5.3 0 0 1 10 14.6a5.3 5.3 0 0 1-5.3-5.3 1 1 0 0 0-2 0 7.3 7.3 0 0 0 6.3 7.2V19H7a1 1 0 1 0 0 2h10a1 1 0 1 0 0-2h-2v-2.5a7.3 7.3 0 0 0 6.3-7.2z"/></svg>
       </div>
@@ -938,12 +1127,12 @@ input[type=range]::-moz-range-thumb {
 
 <!-- Home View -->
 <main id="homeView" class="home">
-  <!-- SaaS Hero -->
+  <!-- SaaS Hero with Light Indigo Glow -->
   <header class="hero">
     <div class="hero-pill">
       <span>✨ Speaking Confidence Builder</span>
     </div>
-    <h1 class="hero-title">Speak English with <span>Natural Fluency</span></h1>
+    <h1 class="hero-title">Speak English with <span class="gradient-text">Natural Fluency</span></h1>
     <p class="hero-subtitle">
       Ten comforting, motivational reflections designed for CEFR A1–B1 learners. 
       Read aloud at your own comfortable pace with real-time teleprompter guidance.
@@ -963,6 +1152,17 @@ input[type=range]::-moz-range-thumb {
       </div>
     </div>
   </header>
+
+  <!-- Overall Progress Tracker (Hidden if 0 completed) -->
+  <section class="progress-section" id="progressSection" hidden aria-label="Learning progress">
+    <div class="progress-meta">
+      <span class="progress-title" id="progressText">0 / 10 lessons completed</span>
+      <span class="progress-pct" id="progressPct">0%</span>
+    </div>
+    <div class="progress-bar-track">
+      <div class="progress-bar-fill" id="progressBarFill" style="width: 0%;"></div>
+    </div>
+  </section>
 
   <!-- Level Filter & Search Bar -->
   <section class="filter-section" aria-label="Topic filters">
@@ -1004,7 +1204,7 @@ input[type=range]::-moz-range-thumb {
     </div>
   </header>
 
-  <div class="stage" id="stage">
+  <div class="stage" id="stage" title="Click to Pause/Resume">
     <div class="stage-gradient-top" aria-hidden="true"></div>
     <div class="stage-gradient-bottom" aria-hidden="true"></div>
     
@@ -1018,7 +1218,7 @@ input[type=range]::-moz-range-thumb {
     <!-- Overlay for Preroll & Finished -->
     <div class="overlay" id="overlay" hidden>
       <div class="ov-box" id="ovPrerollBox">
-        <p class="ov-prompt">Speak fast and clear</p>
+        <p class="ov-prompt">Speak slowly and clearly</p>
         <div class="ov-count" id="ovCountdown">3</div>
       </div>
       <div class="ov-box" id="ovDoneBox" hidden>
@@ -1132,6 +1332,8 @@ function $(sel){ return document.querySelector(sel); }
 function $$(sel){ return document.querySelectorAll(sel); }
 
 var STORAGE_KEY = 'aloud_settings_v4';
+var DONE_KEY = 'aloud_done_v1';
+
 var S = { wpm: 60 };
 try {
   var saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
@@ -1144,7 +1346,26 @@ function saveSettings(){
   try { localStorage.setItem(STORAGE_KEY, JSON.stringify(S)); } catch(e){}
 }
 
-/* ---------------- Web Speech API (Female Voice) ---------------- */
+function getDoneLessons(){
+  try {
+    var raw = localStorage.getItem(DONE_KEY);
+    return raw ? JSON.parse(raw) : [];
+  } catch(e){
+    return [];
+  }
+}
+
+function markLessonDone(id){
+  try {
+    var list = getDoneLessons();
+    if(list.indexOf(id) === -1){
+      list.push(id);
+      localStorage.setItem(DONE_KEY, JSON.stringify(list));
+    }
+  } catch(e){}
+}
+
+/* ---------------- Web Speech API (Female Voice: "Speak slowly and clearly") ---------------- */
 var voiceList = [];
 function updateVoices(){
   if('speechSynthesis' in window){
@@ -1172,7 +1393,7 @@ function speakPrompt(onDone){
   }
   try {
     window.speechSynthesis.cancel();
-    var utterance = new SpeechSynthesisUtterance("Speak fast and clear");
+    var utterance = new SpeechSynthesisUtterance("Speak slowly and clearly");
     utterance.lang = "en-US";
     var voice = getFemaleVoice();
     if(voice) utterance.voice = voice;
@@ -1204,6 +1425,11 @@ var navbar = $('#navbar');
 var mainFooter = $('#mainFooter');
 var topicsGrid = $('#topicsGrid');
 var searchInput = $('#searchInput');
+
+var progressSection = $('#progressSection');
+var progressText = $('#progressText');
+var progressPct = $('#progressPct');
+var progressBarFill = $('#progressBarFill');
 
 var readerTitle = $('#readerTitle');
 var readerSub = $('#readerSub');
@@ -1248,9 +1474,46 @@ var acc = 0;
 var sessionToken = 0;
 var readerVisible = false;
 
+/* ---------------- Progress Road Tracker ---------------- */
+function updateProgressRoad(){
+  var doneList = getDoneLessons();
+  var total = TOPICS.length;
+  var completedCount = 0;
+
+  TOPICS.forEach(function(item){
+    if(doneList.indexOf(item.id) !== -1){
+      completedCount++;
+    }
+  });
+
+  if(completedCount > 0){
+    progressSection.hidden = false;
+    var pct = Math.round((completedCount / total) * 100);
+    progressText.textContent = completedCount + ' / ' + total + ' lessons completed';
+    progressPct.textContent = pct + '%';
+    progressBarFill.style.width = pct + '%';
+  } else {
+    progressSection.hidden = true;
+  }
+}
+
+/* ---------------- Update Card Estimated Times on Speed Change ---------------- */
+function updateAllCardTimes(){
+  var cards = $$('.card');
+  cards.forEach(function(card){
+    var count = Number(card.dataset.wordCount) || 120;
+    var estTime = Math.max(1, Math.round(count / S.wpm));
+    var timeSpan = card.querySelector('.card-est-time');
+    if(timeSpan){
+      timeSpan.textContent = '~' + estTime + ' min';
+    }
+  });
+}
+
 /* ---------------- Home Topics Grid & Filter ---------------- */
 function renderHome(){
   var query = (searchInput.value || '').trim().toLowerCase();
+  var doneList = getDoneLessons();
   topicsGrid.innerHTML = '';
 
   var filtered = TOPICS.map(function(item, idx){ return { item: item, originalIdx: idx }; })
@@ -1268,29 +1531,36 @@ function renderHome(){
     emptyDiv.style.textAlign = 'center';
     emptyDiv.style.padding = '48px 16px';
     emptyDiv.style.color = 'var(--muted)';
-    emptyDiv.innerHTML = '<p style="font-size:16px;font-weight:500;">No practice topics found.</p><p style="font-size:13px;margin-top:4px;">Try searching for something else or reset the filter.</p>';
+    emptyDiv.innerHTML = '<p style="font-size:16px;font-weight:600;color:var(--text);">No practice topics found.</p><p style="font-size:13px;margin-top:4px;">Try searching for another keyword or switch the level filter.</p>';
     topicsGrid.appendChild(emptyDiv);
     return;
   }
 
-  filtered.forEach(function(entry){
+  filtered.forEach(function(entry, staggerIndex){
     var item = entry.item;
     var origIdx = entry.originalIdx;
     var wordCount = item.text.trim().split(/\s+/).length;
-    var estTimeMin = (wordCount / 100).toFixed(1);
+    var estMin = Math.max(1, Math.round(wordCount / S.wpm));
+    var isDone = doneList.indexOf(item.id) !== -1;
 
     var card = document.createElement('article');
-    card.className = 'card';
+    card.className = 'card card-animate';
+    card.dataset.wordCount = wordCount;
     card.tabIndex = 0;
-    card.setAttribute('role', 'button');
     card.setAttribute('aria-label', (origIdx + 1) + '. ' + item.title + ' (' + item.level + ')');
+    card.style.animationDelay = ((staggerIndex % 6) * 60) + 'ms';
 
     var numStr = (origIdx + 1 < 10 ? '0' : '') + (origIdx + 1);
 
+    var doneBadgeHtml = isDone ? '<span class="badge-done">✓ Done</span>' : '';
+
     card.innerHTML = 
       '<div class="card-top">' +
-        '<span class="card-number">Lesson #' + numStr + '</span>' +
-        '<span class="level-badge ' + item.level + '">' + item.level + '</span>' +
+        '<span class="card-num-big">' + numStr + '</span>' +
+        '<div class="card-badges">' +
+          doneBadgeHtml +
+          '<span class="level-badge ' + item.level + '">' + item.level + '</span>' +
+        '</div>' +
       '</div>' +
       '<h2 class="card-title">' + item.title + '</h2>' +
       '<p class="card-desc">' + item.desc + '</p>' +
@@ -1298,9 +1568,11 @@ function renderHome(){
         '<div class="card-meta-info">' +
           '<span>' + wordCount + ' words</span>' +
           '<span>·</span>' +
-          '<span>~' + estTimeMin + ' min</span>' +
+          '<span class="card-est-time">~' + estMin + ' min</span>' +
         '</div>' +
-        '<span class="card-cta">Start Practice →</span>' +
+        '<button class="card-circle-btn" aria-label="Start Lesson ' + (origIdx + 1) + '" type="button" tabindex="-1">' +
+          '<svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>' +
+        '</button>' +
       '</div>';
 
     card.addEventListener('click', function(){ openTopic(origIdx); });
@@ -1313,6 +1585,8 @@ function renderHome(){
 
     topicsGrid.appendChild(card);
   });
+
+  updateProgressRoad();
 }
 
 // Filter button events
@@ -1412,6 +1686,7 @@ function openTopic(idx){
   readerView.hidden = false;
   readerVisible = true;
   document.documentElement.classList.add('in-reader');
+  document.body.classList.add('in-reader');
 
   alignToWord(0);
 
@@ -1422,7 +1697,7 @@ function openTopic(idx){
   ovCountdown.textContent = '3';
 
   var currentSession = sessionToken;
-  // Female voice says: "Speak fast and clear"
+  // Female voice says: "Speak slowly and clearly"
   speakPrompt(function(){
     if(currentSession !== sessionToken) return;
     runCountdown(3, currentSession);
@@ -1500,6 +1775,9 @@ function finishReading(){
   state = 'done';
   updateButtonLabels();
 
+  // Save completed lesson to localStorage
+  markLessonDone(TOPICS[curTopicIdx].id);
+
   var sec = Math.max(1, Math.round(elapsed));
   var m = Math.floor(sec / 60);
   var s = sec % 60;
@@ -1524,7 +1802,11 @@ function backToHome(){
   navbar.hidden = false;
   mainFooter.hidden = false;
   document.documentElement.classList.remove('in-reader');
+  document.body.classList.remove('in-reader');
   window.scrollTo(0, 0);
+
+  // Re-render home to update completed badges and progress road
+  renderHome();
 }
 
 function updateButtonLabels(){
@@ -1558,6 +1840,7 @@ function setWpm(val){
   wpmSlider.value = num;
   wpmOutput.textContent = num;
   recalcScrollSpeed();
+  updateAllCardTimes();
   debounceSaveSettings();
 }
 
@@ -1603,7 +1886,7 @@ stage.addEventListener('click', function(e){
   else if(state === 'paused') resumeReading();
 });
 
-// Keyboard navigation (Space: Pause/Resume, Esc: Back, Up/Down: Speed)
+// Keyboard navigation (Space: Pause/Resume, Esc: Back, Up/Down/Left/Right: Speed)
 document.addEventListener('keydown', function(e){
   if(!readerVisible) return;
   var tag = e.target && e.target.tagName;
@@ -1613,9 +1896,12 @@ document.addEventListener('keydown', function(e){
     togglePlayPause();
   } else if(e.key === 'Escape'){
     backToHome();
-  } else if((e.key === 'ArrowUp' || e.key === 'ArrowDown') && tag !== 'INPUT'){
+  } else if((e.key === 'ArrowUp' || e.key === 'ArrowRight') && tag !== 'INPUT'){
     e.preventDefault();
-    setWpm(S.wpm + (e.key === 'ArrowUp' ? 5 : -5));
+    setWpm(S.wpm + 5);
+  } else if((e.key === 'ArrowDown' || e.key === 'ArrowLeft') && tag !== 'INPUT'){
+    e.preventDefault();
+    setWpm(S.wpm - 5);
   }
 });
 
