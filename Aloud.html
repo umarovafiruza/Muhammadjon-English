@@ -1,0 +1,1126 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Aloud - Ingliz tili speaking mashqi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap">
+<style>
+:root{
+  color-scheme:dark;
+  --bg:#080C14;
+  --ink:#E9EFF8;
+  --mute:#8E9AB0;
+  --future:#5D6A82;
+  --line:rgba(180,200,235,.10);
+  --line2:rgba(180,200,235,.22);
+  --soft:rgba(180,200,235,.05);
+  --accent:#FFC27A;
+  --danger:#FF5C5C;
+  --success:#4ADE80;
+  --veil:rgba(8,12,20,.85);
+  --shine:rgba(255,194,122,.14);
+  --shadow:rgba(0,0,0,.65);
+  --btn-bg:#E9EFF8;
+  --btn-fg:#080C14;
+  --glass:rgba(14,21,34,.68);
+  --display:"Instrument Serif","Iowan Old Style",Georgia,serif;
+  --ui:"Hanken Grotesk",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+}
+
+/* ---------- Base Styles ---------- */
+[hidden]{display:none!important}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+html,body{
+  margin:0;padding:0;
+  background:var(--bg);color:var(--ink);
+  font:400 16px/1.5 var(--ui);
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+  width:100%;min-height:100vh;
+}
+html.in-reader,html.in-reader body{overflow:hidden}
+
+button,input{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+
+/* Background Atmosphere (Optimized for low-end GPUs) */
+.sky{
+  position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:linear-gradient(180deg,#0D1424 0%,var(--bg) 85%);
+}
+#rain{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
+
+.home,.reader{position:relative;z-index:1}
+
+/* Tactile minimalist buttons */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  font:600 14px/1 var(--ui);padding:11px 16px;border:1px solid var(--line2);border-radius:12px;
+  background:var(--glass);color:var(--ink);cursor:pointer;
+  box-shadow:0 3px 0 var(--line2);
+  transition:transform .09s ease,box-shadow .09s ease,border-color .15s,background .15s,color .15s;
+  white-space:nowrap;user-select:none;-webkit-tap-highlight-color:transparent;
+  min-height:42px;
+}
+.btn:hover{transform:translateY(-1px);box-shadow:0 4px 0 var(--line2);border-color:var(--ink)}
+.btn:active{transform:translateY(3px);box-shadow:0 0 0 var(--line2)}
+.btn[disabled]{opacity:.45;cursor:not-allowed;transform:none;box-shadow:none}
+
+.btn.primary{
+  background:var(--btn-bg);color:var(--btn-fg);border-color:transparent;
+  padding:14px 28px;font-size:15px;min-width:140px;border-radius:13px;
+  box-shadow:0 4px 0 var(--accent),0 16px 28px -12px var(--shadow);
+}
+.btn.primary:hover{transform:translateY(-2px);box-shadow:0 6px 0 var(--accent),0 20px 32px -12px var(--shadow)}
+.btn.primary:active{transform:translateY(4px);box-shadow:0 0 0 var(--accent)}
+
+.btn.ghost{border-color:transparent;box-shadow:none;background:transparent;padding:8px 12px}
+.btn.ghost:hover{border-color:var(--line2);background:var(--soft)}
+.btn.ghost:active{transform:translateY(1px)}
+
+/* Dictaphone button */
+.btn-rec{border-color:rgba(255,92,92,.35)}
+.btn-rec:hover{border-color:var(--danger)}
+.rec-dot{width:9px;height:9px;border-radius:50%;background:var(--danger);display:inline-block;transition:transform .2s}
+.btn-rec.is-recording{
+  background:rgba(255,92,92,.15);border-color:var(--danger);color:#FFAEAE;
+  box-shadow:0 3px 0 rgba(255,92,92,.4);
+}
+.btn-rec.is-recording .rec-dot{
+  animation:pulseRec 1s infinite alternate;
+}
+@keyframes pulseRec{from{transform:scale(0.85);opacity:0.4}to{transform:scale(1.35);opacity:1}}
+
+.badge{
+  display:inline-block;padding:2px 7px;font-size:11px;font-weight:700;
+  border-radius:999px;background:var(--line2);color:var(--ink);
+  line-height:1;margin-left:2px;
+}
+
+/* ---------- Home View ---------- */
+.view{animation:viewIn .45s cubic-bezier(.2,.7,.2,1) both}
+@keyframes viewIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.home{
+  max-width:1160px;margin:0 auto;
+  padding:16px 20px 56px;
+}
+.bar{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:50px}
+.brand{font-family:var(--display);font-size:32px;line-height:1;letter-spacing:-.01em}
+.hero{display:grid;grid-template-columns:1.15fr .85fr;align-items:center;gap:28px;padding-block:clamp(20px,5vw,56px) clamp(30px,6vw,64px)}
+.hero-copy{min-width:0}
+.eyebrow{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--mute);font-weight:600;margin:0}
+h1{font-family:var(--display);font-weight:400;font-size:clamp(44px,8.2vw,96px);line-height:.96;letter-spacing:-.025em;margin:16px 0 20px;text-wrap:balance}
+h1 em{font-style:italic;color:var(--accent)}
+.lead{max-width:38ch;font-size:clamp(16px,2vw,19px);color:var(--mute);margin:0;line-height:1.55}
+.hero-actions{margin-top:28px;display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+.stat{margin:18px 0 0;font-size:13px;color:var(--mute);font-variant-numeric:tabular-nums}
+.orb-wrap{justify-self:center;width:min(420px,100%);aspect-ratio:1;max-width:100%}
+.orb-wrap canvas{width:100%;height:100%;display:block}
+
+.sec-head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:18px;flex-wrap:wrap}
+h2{font-family:var(--display);font-weight:400;font-size:clamp(30px,4.5vw,44px);line-height:1;letter-spacing:-.015em;margin:0}
+.sec-head p{margin:0;color:var(--mute);font-size:14px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,240px),1fr));gap:16px}
+.card{
+  position:relative;display:flex;flex-direction:column;gap:4px;min-width:0;min-height:220px;
+  padding:20px;border:1px solid var(--line2);border-radius:16px;background:var(--glass);
+  cursor:pointer;
+  transition:box-shadow .2s,border-color .2s;
+  animation:rise .4s cubic-bezier(.2,.7,.2,1) backwards;animation-delay:calc(var(--i,0)*30ms);
+}
+@keyframes rise{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.card:hover{border-color:var(--ink);box-shadow:0 24px 38px -22px var(--shadow)}
+.card::after{
+  content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;opacity:0;transition:opacity .25s;
+  background:radial-gradient(260px circle at var(--mx,50%) var(--my,0%),var(--shine),transparent 62%);
+}
+.card:hover::after{opacity:1}
+.c-top{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.c-level{font-size:11px;font-weight:700;letter-spacing:.08em;border:1px solid var(--line2);padding:3px 8px;border-radius:999px}
+.c-done{font-size:12px;color:var(--accent);font-weight:600}
+.c-title{font-family:var(--display);font-weight:400;font-size:30px;line-height:1.05;letter-spacing:-.01em;margin:12px 0 0;text-wrap:balance}
+.c-uz{margin:2px 0 0;color:var(--mute);font-size:14px}
+.c-rhythm{margin-top:auto;padding-top:16px;width:100%;max-width:180px;height:42px;color:var(--ink);display:block}
+.c-meta{display:flex;gap:12px;margin:6px 0 0;font-size:12px;color:var(--mute);font-variant-numeric:tabular-nums}
+.foot{margin-top:36px;color:var(--mute);font-size:13px;text-align:center}
+
+/* ---------- Reader View ---------- */
+.reader{
+  display:flex;flex-direction:column;
+  height:100vh;height:calc(100dvh - env(safe-area-inset-top,0px) - env(safe-area-inset-bottom,0px));
+  max-width:980px;margin:0 auto;
+  padding:8px 16px 14px;
+  overflow:hidden;
+}
+
+/* Header bar */
+.rbar{
+  display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:12px;
+  min-height:44px;
+}
+.rtitle{min-width:0;text-align:center;padding:0 4px}
+.rtitle strong{display:block;font-family:var(--display);font-weight:400;font-size:22px;line-height:1.15;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rtitle span{display:block;font-size:11px;color:var(--mute);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rmeta{text-align:right;font-size:12px;color:var(--mute);font-variant-numeric:tabular-nums;line-height:1.3;min-width:70px}
+.rmeta b{display:block;color:var(--ink);font-size:12px}
+
+.prog{height:2px;background:var(--line);margin-block:6px 2px}
+.prog i{display:block;height:100%;width:0;background:var(--accent);transition:width .2s linear}
+
+/* Reading Stage */
+.stage{
+  position:relative;flex:1;min-height:0;overflow:hidden;
+  margin-block:4px;border-radius:16px;
+}
+
+/* Static Gradient Vignettes for top and bottom */
+.stage-shade{position:absolute;left:0;right:0;height:52px;pointer-events:none;z-index:2}
+.stage-shade.top{top:0;background:linear-gradient(to bottom,var(--bg) 0%,transparent 100%)}
+.stage-shade.bottom{bottom:0;background:linear-gradient(to top,var(--bg) 0%,transparent 100%)}
+
+/* 6-Promt: Eye Focus Guide Line at 40% height */
+.focus-line-wrap{
+  position:absolute;top:40%;left:0;right:0;transform:translateY(-50%);
+  pointer-events:none;z-index:2;
+  display:flex;align-items:center;justify-content:center;
+  padding:0 12px;opacity:.85;
+}
+.focus-arm{flex:1;max-width:160px;height:1px}
+.focus-arm.left{
+  background:linear-gradient(90deg,transparent 0%,rgba(255,194,122,.2) 40%,rgba(255,194,122,.85) 100%);
+}
+.focus-arm.right{
+  background:linear-gradient(90deg,rgba(255,194,122,.85) 0%,rgba(255,194,122,.2) 60%,transparent 100%);
+}
+.focus-reticle{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:22px;height:22px;margin:0 4px;
+}
+.focus-core{
+  display:block;width:5px;height:5px;border-radius:50%;
+  background:var(--accent);
+  box-shadow:0 0 8px var(--accent),0 0 16px rgba(255,194,122,.7);
+}
+
+.tilt{
+  position:absolute;inset:0;
+}
+
+/* 2-Promt: Text width tuned for ~4 words per line */
+.scroller{
+  position:relative;
+  max-width:360px; /* Reduced width for ~4 words per line */
+  width:100%;
+  margin:0 auto;
+  padding:0 12px 70vh;
+  will-change:transform;
+  transform:translateZ(0);
+  backface-visibility:hidden;
+  contain:layout style paint;
+  text-align:center;
+}
+.text{
+  margin:0 auto;
+  font-weight:500;
+  font-size:clamp(22px,5.2vw,32px);
+  line-height:1.6;
+  letter-spacing:-.01em;
+  max-width:18ch; /* 4 words average */
+  text-align:center;
+  word-break:normal;
+  overflow-wrap:break-word;
+}
+.w{
+  display:inline-block;position:relative;z-index:1;
+  color:var(--ink);cursor:pointer;
+  margin:0 4px;
+}
+.w.p,.w.c{color:var(--ink)}
+
+/* Overlays */
+.overlay{
+  position:absolute;inset:0;display:grid;place-items:center;text-align:center;padding:16px;
+  background:rgba(8,12,20,.96);z-index:3;
+}
+.overlay>*{display:none}
+.overlay[data-mode="phrase"] .ov-phrase-box,
+.overlay[data-mode="count"] .ov-count,
+.overlay[data-mode="done"] .ov-done{display:block}
+.ov-label{margin:0 0 12px;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--mute);font-weight:600}
+.ov-phrase{margin:0;font-family:var(--display);font-size:clamp(42px,10vw,84px);line-height:.98;letter-spacing:-.02em;animation:tiltIn .8s cubic-bezier(.2,.8,.2,1) both}
+.ov-phrase em{color:var(--accent)}
+@keyframes tiltIn{from{opacity:0;transform:rotateX(-60deg) translateZ(-120px)}to{opacity:1;transform:none}}
+.ov-count span{display:block;font-family:var(--display);font-size:clamp(96px,24vw,190px);line-height:1;color:var(--accent);animation:count .8s ease both}
+@keyframes count{
+  0%{opacity:0;transform:rotateX(70deg) scale(.6)}
+  28%{opacity:1;transform:none}
+  72%{opacity:1;transform:none}
+  100%{opacity:0;transform:scale(1.15)}
+}
+.ov-done{width:min(420px,100%);padding:24px 20px;border:1px solid var(--line2);border-radius:18px;background:var(--bg);box-shadow:0 30px 50px -30px var(--shadow);animation:tiltIn .6s cubic-bezier(.2,.8,.2,1) both}
+.ov-big{margin:0;font-family:var(--display);font-size:clamp(56px,12vw,78px);line-height:1;font-variant-numeric:tabular-nums}
+.ov-sub{margin:6px 0 20px;color:var(--mute);font-size:14px}
+.ov-actions{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
+
+/* ---------- Controls (Minimalist & Responsive) ---------- */
+.controls{
+  border-top:1px solid var(--line);padding-top:10px;
+  display:flex;flex-direction:column;gap:10px;
+}
+.ctrl-row-top{
+  display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;
+}
+.c-main-group{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.c-tools-group{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+
+/* 3-Promt: Speed slider (max 250 WPM) */
+.ctrl-row-speed{
+  display:flex;align-items:center;gap:12px;background:rgba(180,200,235,.03);
+  padding:8px 14px;border-radius:12px;border:1px solid var(--line);flex-wrap:wrap;
+}
+.speed-slider-wrap{
+  display:flex;align-items:center;gap:10px;flex:1 1 200px;min-width:180px;
+  font-size:13px;color:var(--mute);
+}
+.speed-slider-wrap output{
+  min-width:2.6em;color:var(--ink);font-weight:600;font-variant-numeric:tabular-nums;text-align:right;
+}
+.speed-presets{
+  display:inline-flex;border:1px solid var(--line2);border-radius:10px;padding:2px;gap:2px;
+}
+.speed-presets button{
+  font:600 12px/1 var(--ui);padding:7px 10px;border:0;border-radius:8px;background:transparent;color:var(--mute);cursor:pointer;
+  transition:background .15s,color .15s;
+}
+.speed-presets button:hover{color:var(--ink)}
+.speed-presets button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:24px;background:transparent;margin:0;cursor:pointer}
+input[type=range]::-webkit-slider-runnable-track{height:4px;border-radius:4px;background:linear-gradient(to right,var(--accent) var(--p,50%),var(--line2) var(--p,50%))}
+input[type=range]::-moz-range-track{height:4px;border-radius:4px;background:linear-gradient(to right,var(--accent) var(--p,50%),var(--line2) var(--p,50%))}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;margin-top:-7px;border-radius:50%;background:var(--bg);border:2px solid var(--ink);box-shadow:0 2px 0 var(--accent)}
+input[type=range]::-moz-range-thumb{width:14px;height:14px;border-radius:50%;background:var(--bg);border:2px solid var(--ink);box-shadow:0 2px 0 var(--accent)}
+
+
+
+/* ---------- Responsive Layout Adjustments ---------- */
+@media (max-width:820px){
+  .hero{grid-template-columns:1fr;gap:12px;padding-block:16px 36px}
+  .orb-wrap{order:-1;width:min(200px,60%);justify-self:start;margin-left:-4px}
+  .orb-mini{width:56px;height:56px}
+  .scroller{max-width:320px}
+}
+
+@media (max-width:600px){
+  body{font-size:15px}
+  .home{padding:12px 14px 40px}
+  .reader{padding:6px 12px 10px}
+  .bar{min-height:44px}
+  .brand{font-size:26px}
+  .rtitle strong{font-size:18px}
+  .rmeta{min-width:54px;font-size:11px}
+  
+  .controls{gap:8px;padding-top:8px}
+  .ctrl-row-top{flex-direction:column;align-items:stretch;gap:8px}
+  .c-main-group{display:grid;grid-template-columns:1.5fr 1fr;gap:6px;width:100%}
+  .c-tools-group{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;width:100%}
+  .btn{padding:10px 10px;font-size:13px;min-height:40px;justify-content:center}
+  .btn.primary{padding:12px 16px;min-width:0}
+  
+  .ctrl-row-speed{padding:8px 10px;flex-direction:column;align-items:stretch;gap:6px}
+  .speed-presets{width:100%;display:grid;grid-template-columns:repeat(4,1fr);text-align:center}
+  .speed-presets button{padding:7px 2px;font-size:11px}
+  
+  .scroller{max-width:290px;padding:0 8px 65vh}
+  .text{font-size:clamp(20px,5vw,26px);max-width:17ch;line-height:1.5}
+  
+  .focus-arm{max-width:100px}
+}
+
+@media (max-width:380px){
+  .c-tools-group{grid-template-columns:1fr 1fr}
+  .c-tools-group .btn:last-child{grid-column:span 2}
+  .scroller{max-width:260px}
+}
+
+@media (prefers-reduced-motion: reduce){
+  .card,.view,.ov-phrase,.ov-count span,.ov-done{animation:none!important}
+  .card{transform:none!important}
+  .btn-rec.is-recording .rec-dot{animation:none}
+}
+</style>
+</head>
+<body>
+
+<div class="sky" aria-hidden="true"></div>
+<canvas id="rain" aria-hidden="true"></canvas>
+
+<!-- Home View -->
+<main id="home" class="home view">
+  <header class="bar">
+    <span class="brand">Aloud</span>
+    <button class="btn ghost" id="fxToggle" type="button">Effektlar: Yoqilgan</button>
+  </header>
+  
+  <section class="hero">
+    <div class="hero-copy">
+      <p class="eyebrow">Ingliz tili speaking mashqi</p>
+      <h1>Ovoz chiqarib <em>o'qing.</em></h1>
+      <p class="lead">Matn o'z tezligida siljiydi. Qatorda 4 ta so'z. Siz to'xtamasdan, aniq va ravon gapirasiz.</p>
+      <div class="hero-actions">
+        <button class="btn primary" id="goTopics" type="button">Mavzuni tanlash</button>
+      </div>
+      <p class="stat" id="stat" hidden></p>
+    </div>
+    <div class="orb-wrap"><canvas id="orbHome" aria-hidden="true"></canvas></div>
+  </section>
+  
+  <section id="topics">
+    <div class="sec-head">
+      <h2>Mavzuni tanlang</h2>
+      <p>Har bir matn taxminan bir daqiqa davom etadi.</p>
+    </div>
+    <div class="grid" id="grid"></div>
+  </section>
+  
+  <p class="foot">Probel: boshlash va pauza. Strelkalar: tezlik. Esc: orqaga.</p>
+</main>
+
+<!-- Reader View -->
+<main id="reader" class="reader view" hidden>
+  <header class="rbar">
+    <button class="btn ghost" id="back" type="button">← Orqaga</button>
+    <div class="rtitle">
+      <strong id="rTitle"></strong>
+      <span id="rSub"></span>
+    </div>
+    <div class="rmeta">
+      <b id="rStatus">Tayyor</b>
+      <span id="rCount">0 / 0</span>
+    </div>
+  </header>
+  
+  <div class="prog"><i id="prog"></i></div>
+  
+  <div class="stage" id="stage">
+    <div class="stage-shade top" aria-hidden="true"></div>
+    <div class="stage-shade bottom" aria-hidden="true"></div>
+
+    <!-- 6-Promt: Horizontal Focus Guide Line at 40% target height -->
+    <div class="focus-line-wrap" aria-hidden="true">
+      <span class="focus-arm left"></span>
+      <span class="focus-reticle"><i class="focus-core"></i></span>
+      <span class="focus-arm right"></span>
+    </div>
+
+    <div class="tilt" id="tilt">
+      <!-- 2-Promt: Reduced width scroller (approx 4 words per line) -->
+      <div class="scroller" id="scroller">
+        <p class="text" id="text"></p>
+      </div>
+    </div>
+    
+    <div class="overlay" id="overlay" hidden>
+      <div class="ov-phrase-box">
+        <p class="ov-label">Tayyorlaning</p>
+        <p class="ov-phrase">Speak fast<br>and <em>clear.</em></p>
+      </div>
+      <div class="ov-count"><span id="ovNum">3</span></div>
+      <div class="ov-done">
+        <p class="ov-label">Tugadi</p>
+        <p class="ov-big" id="doneTime">0:00</p>
+        <p class="ov-sub" id="doneSub"></p>
+        <div class="ov-audio-wrap" id="ovAudioWrap" hidden style="margin:16px 0;display:flex;flex-direction:column;align-items:center;gap:10px">
+          <audio id="ovAudio" controls style="width:100%;max-width:320px;height:38px;outline:none"></audio>
+          <a class="btn" id="ovDownload" download="aloud-recording.webm" style="display:inline-flex;text-decoration:none">Yuklab olish</a>
+        </div>
+        <div class="ov-actions">
+          <button class="btn primary" data-act="again" type="button" style="min-width:0;padding:12px 20px">Qayta o'qish</button>
+          <button class="btn" data-act="next" type="button">Keyingi mavzu</button>
+          <button class="btn" data-act="topics" type="button">Mavzular</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Minimalist, organized responsive controls -->
+  <div class="controls">
+    <div class="ctrl-row-top">
+      <div class="c-main-group">
+        <button class="btn primary" id="play" type="button">Boshlash</button>
+        <button class="btn" id="restart" type="button">Qaytadan</button>
+      </div>
+      
+      <div class="c-tools-group">
+        <!-- Diktafon button -->
+        <button class="btn btn-rec" id="btnRecord" type="button" title="Ovozingizni yozib oling">
+          <span class="rec-dot"></span>
+          <span id="recText">Yozish</span>
+        </button>
+        <button class="btn" id="sample" type="button" title="Matn namunasini tinglash">🎧 Namuna</button>
+      </div>
+    </div>
+
+    <!-- 3-Promt: Speed Slider (Scroll bar up to 250 WPM) -->
+    <div class="ctrl-row-speed">
+      <div class="speed-slider-wrap">
+        <span>Tezlik:</span>
+        <input id="wpm" type="range" min="60" max="250" step="5" value="110" aria-label="O'qish tezligi">
+        <output id="wpmOut">110</output>
+        <small style="color:var(--mute)">so'z/daq</small>
+      </div>
+      <div class="speed-presets" role="group" aria-label="Tezlik darajalari">
+        <button type="button" data-wpm="80">Sekin</button>
+        <button type="button" data-wpm="130">O'rtacha</button>
+        <button type="button" data-wpm="180">Tez</button>
+        <button type="button" data-wpm="250">Max (250)</button>
+      </div>
+    </div>
+  </div>
+</main>
+
+
+
+<script>
+(function(){
+'use strict';
+
+/* ---------------- Topics Data ---------------- */
+var TOPICS=[
+{id:'routine',title:'Daily Routine',uz:'Kundalik tartib',level:'A2',text:`I wake up at seven o'clock every morning. First, I drink a glass of water and wash my face. Then I make breakfast. I usually eat eggs, bread, and a cup of tea. After breakfast, I brush my teeth and get ready for work. I leave home at eight and take the bus. The ride takes about twenty minutes. At work, I answer emails and talk with my team. In the evening, I cook dinner and call my family. Before bed, I read a book for half an hour. I go to sleep at eleven. A simple routine helps me feel calm and ready for the next day.`},
+{id:'myself',title:'Introducing Myself',uz:"O'zim haqimda",level:'A2',text:`Hello, my name is Aziz, and I am twenty years old. I live in Tashkent with my parents and my younger sister. I study computer science at university, and I love learning new things. In my free time, I play football with my friends and listen to music. I also enjoy watching films in English because it helps me learn. My dream is to speak English fluently and work for an international company. I am a patient and curious person. Nice to meet you, and thank you for listening to my story.`},
+{id:'family',title:'Family and Friends',uz:"Oila va do'stlar",level:'A2',text:`I have a big and happy family. My father is a teacher, and my mother works in a hospital. I have one brother and one sister. On weekends, we eat lunch together and talk about our week. My grandmother tells us old stories, and everyone laughs. I also have two close friends, Dilnoza and Jasur. We met at school ten years ago. A good friend listens carefully and helps you when you are sad. I am lucky to have these people in my life. Family and friends make every day brighter, and I am always grateful for them.`},
+{id:'restaurant',title:'At the Restaurant',uz:'Restoranda',level:'A2',text:`Good evening. A table for two, please. Thank you. Could we see the menu? I would like the grilled chicken with rice and a green salad. My friend would like the pasta and a glass of orange juice. Excuse me, is the soup spicy? Great, we will take one soup as well. The food looks delicious. Everything is very tasty, thank you. Could we have the bill, please? Can I pay by card? Here is a small tip for the great service. We enjoyed our dinner very much, and we will definitely come back again soon. Have a nice evening.`},
+{id:'travel',title:'Travel and Airport',uz:'Sayohat va aeroport',level:'B1',text:`Last summer, I traveled to Istanbul for the first time. I arrived at the airport three hours early because I did not want to miss my flight. First, I checked in and left my suitcase at the counter. Then I went through security and found my gate. While waiting, I bought a coffee and watched the planes take off. The flight was smooth, and I even slept for an hour. When we landed, I felt excited and a little nervous. Everything was new: the language, the food, and the streets. That trip taught me to be brave and open to new experiences.`},
+{id:'career',title:'Work and Career',uz:'Ish va karyera',level:'B1',text:`I work as a junior designer in a small company. My main job is to create simple and clear designs for websites. Every Monday, our team meets to plan the week and share new ideas. I enjoy working with talented people because I learn something new every day. Of course, deadlines can be stressful, but good planning helps a lot. In the future, I want to become a senior designer and lead my own team. To reach this goal, I practice daily, read about new trends, and ask for feedback. Hard work and patience will open many doors for me.`},
+{id:'interview',title:'Job Interview',uz:'Ish intervyusi',level:'B1',text:`Thank you for inviting me today. I am very excited about this opportunity. I have three years of experience in customer service, and I enjoy helping people solve problems. My greatest strength is communication. I listen carefully and explain things clearly. One weakness is that I sometimes work too long on small details, but I am learning to manage my time better. I want to join your company because it values teamwork and growth. If I get the job, I will work hard and learn quickly. Do you have any questions for me? Thank you again for your time.`},
+{id:'tech',title:'Technology and Social Media',uz:'Texnologiya va tarmoqlar',level:'B1',text:`Technology has changed the way we live. Today, we can talk to anyone in the world in a few seconds. Social media helps us share photos, learn new skills, and follow the news. However, it can also take too much of our time. Many people check their phones every few minutes without a real reason. I try to use my phone wisely. I turn off notifications while studying, and I spend an hour outside every day. Technology is a powerful tool, but we should control it, and not let it control us. Balance is the key to a healthy digital life.`},
+{id:'health',title:'Health and Sport',uz:"Sog'liq va sport",level:'A2',text:`Staying healthy is very important to me. I try to eat fresh fruit and vegetables every day, and I drink plenty of water. Three times a week, I go running in the park near my house. After a run, I feel full of energy and my mind feels clear. I also sleep eight hours every night because rest is as important as exercise. When I am tired, I stretch for ten minutes. Last month, I joined a swimming class, and I really love it. A healthy body gives you a happy mind, and small habits make a big difference over time.`},
+{id:'future',title:'Dreams and Future Plans',uz:'Orzular va rejalar',level:'B1',text:`Everyone has dreams, and mine are big. In five years, I want to speak English fluently and study abroad. After that, I hope to start my own business and create jobs for young people in my country. I know the road will not be easy. There will be difficult days and many mistakes. But I believe that every mistake is a lesson. I practice speaking a little every day because small steps lead to big results. When I feel tired, I remember my goals and keep going. The future belongs to those who prepare for it today.`}
+];
+
+/* ---------------- Helpers & Storage ---------------- */
+function $(s){return document.querySelector(s)}
+var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+var KEY_PROGRESS='aloud-progress-v2';
+
+var P={done:{},sec:0,wpm:110,fx:true};
+try{
+  var saved=JSON.parse(localStorage.getItem(KEY_PROGRESS));
+  if(saved&&typeof saved==='object'){for(var k in saved){P[k]=saved[k]}}
+}catch(e){}
+if(P.fx===undefined) P.fx=true;
+function saveProgress(){try{localStorage.setItem(KEY_PROGRESS,JSON.stringify(P))}catch(e){}}
+function clamp(v,a,b){return Math.max(a,Math.min(b,v))}
+function wordCount(t){return t.text.split(/\s+/).length}
+
+/* ---------------- Dictaphone / Voice Recorder ---------------- */
+var mediaRecorder=null;
+var audioChunks=[];
+var recStartTime=0;
+var recTimerId=null;
+var isRecording=false;
+var currentAudioUrl=null;
+
+function clearAudioUrl(){
+  if(currentAudioUrl){
+    try{URL.revokeObjectURL(currentAudioUrl)}catch(e){}
+    currentAudioUrl=null;
+  }
+}
+
+function updateDoneAudio(){
+  var wrap=$('#ovAudioWrap'),aud=$('#ovAudio'),dl=$('#ovDownload');
+  if(!wrap||!aud||!dl) return;
+  if(currentAudioUrl){
+    aud.src=currentAudioUrl;
+    dl.href=currentAudioUrl;
+    wrap.hidden=false;
+  }else{
+    wrap.hidden=true;
+    aud.removeAttribute('src');
+  }
+}
+
+function startRecording(){
+  if(!navigator.mediaDevices||!navigator.mediaDevices.getUserMedia){
+    alert("Brauzeringizda mikrofondan foydalanish qo'llab-quvvatlanmaydi.");
+    return;
+  }
+  navigator.mediaDevices.getUserMedia({audio:true})
+    .then(function(stream){
+      var mimeType='';
+      if(MediaRecorder.isTypeSupported('audio/webm;codecs=opus')){
+        mimeType='audio/webm;codecs=opus';
+      }else if(MediaRecorder.isTypeSupported('audio/webm')){
+        mimeType='audio/webm';
+      }else if(MediaRecorder.isTypeSupported('audio/ogg')){
+        mimeType='audio/ogg';
+      }
+      mediaRecorder=mimeType?new MediaRecorder(stream,{mimeType:mimeType}):new MediaRecorder(stream);
+      audioChunks=[];
+      clearAudioUrl();
+
+      mediaRecorder.ondataavailable=function(e){
+        if(e.data&&e.data.size>0){audioChunks.push(e.data)}
+      };
+
+      mediaRecorder.onstop=function(){
+        stream.getTracks().forEach(function(track){track.stop()});
+        if(audioChunks.length===0) return;
+        var blob=new Blob(audioChunks,{type:mediaRecorder.mimeType||'audio/webm'});
+        clearAudioUrl();
+        currentAudioUrl=URL.createObjectURL(blob);
+        updateDoneAudio();
+      };
+
+      mediaRecorder.start();
+      isRecording=true;
+      recStartTime=Date.now();
+      updateRecUI(true);
+
+      recTimerId=setInterval(function(){
+        var sec=Math.floor((Date.now()-recStartTime)/1000);
+        var m=Math.floor(sec/60),s=sec%60;
+        var timeLabel=(m<10?'0':'')+m+':'+(s<10?'0':'')+s;
+        $('#recText').textContent='To\'xtatish ('+timeLabel+')';
+      },1000);
+    })
+    .catch(function(err){
+      console.warn("Mikrofon ruxsati berilmadi:",err);
+      alert("Mikrofonni yoqishga ruxsat berilmadi. Sozlamalardan mikrofonni yoqing.");
+    });
+}
+
+function stopRecording(){
+  if(mediaRecorder&&isRecording){
+    try{mediaRecorder.stop()}catch(e){}
+  }
+  isRecording=false;
+  clearInterval(recTimerId);
+  updateRecUI(false);
+}
+
+function toggleRecording(){
+  if(isRecording){stopRecording()}
+  else{startRecording()}
+}
+
+function updateRecUI(rec){
+  var btn=$('#btnRecord'),txt=$('#recText');
+  if(!btn) return;
+  if(rec){
+    btn.classList.add('is-recording');
+    txt.textContent='To\'xtatish (00:00)';
+  }else{
+    btn.classList.remove('is-recording');
+    txt.textContent='Yozish';
+  }
+}
+
+$('#btnRecord').addEventListener('click',toggleRecording);
+
+/* ---------------- Speech Synthesis Sample ---------------- */
+var voiceCache=null;
+function loadVoices(){try{voiceCache=window.speechSynthesis.getVoices()}catch(e){voiceCache=[]}}
+if('speechSynthesis' in window){loadVoices();try{speechSynthesis.addEventListener('voiceschanged',loadVoices)}catch(e){}}
+function pickVoice(){
+  var v=(voiceCache||[]).filter(function(x){return /^en/i.test(x.lang)});
+  var fem=v.filter(function(x){return /(samantha|zira|aria|jenny|susan|female|karen|moira|tessa|serena|libby|sonia|hazel|google us english|google uk english female)/i.test(x.name)});
+  return fem[0]||v[0]||null;
+}
+function say(text,rate,onend,maxMs){
+  var done=false;
+  function fin(){if(!done){done=true;if(onend)onend()}}
+  if(!('speechSynthesis' in window)){setTimeout(fin,1600);return}
+  try{
+    speechSynthesis.cancel();
+    setTimeout(function(){
+      try{
+        var u=new SpeechSynthesisUtterance(text);
+        u.lang='en-US';var v=pickVoice();if(v){u.voice=v}
+        u.rate=rate;u.pitch=1.05;u.onend=fin;u.onerror=fin;
+        speechSynthesis.speak(u);
+      }catch(e){fin()}
+    },80);
+    setTimeout(fin,maxMs);
+  }catch(e){fin()}
+}
+
+/* ---------------- 3D Dot Sphere Canvas ---------------- */
+var cols={ink:'#E9EFF8',accent:'#FFC27A'};
+function readCols(){
+  var cs=getComputedStyle(document.documentElement);
+  cols.ink=cs.getPropertyValue('--ink').trim()||cols.ink;
+  cols.accent=cs.getPropertyValue('--accent').trim()||cols.accent;
+}
+function makeOrb(canvas,n){
+  var pts=[],ring=[],i;
+  for(i=0;i<n;i++){
+    var y=1-2*(i+.5)/n,r=Math.sqrt(1-y*y),th=i*2.399963;
+    pts.push({x:Math.cos(th)*r,y:y,z:Math.sin(th)*r,lat:Math.abs(y)});
+  }
+  for(i=0;i<100;i++){var a=i/100*Math.PI*2;ring.push([Math.cos(a)*1.4,0,Math.sin(a)*1.4])}
+  var ang=Math.random()*6;
+  return function(dt,t,pulse){
+    if(!canvas.offsetParent) return;
+    var dpr=1;
+    var W=canvas.clientWidth,H=canvas.clientHeight;
+    if(!W||!H) return;
+    var pw=Math.round(W*dpr),ph=Math.round(H*dpr);
+    if(canvas.width!==pw||canvas.height!==ph){canvas.width=pw;canvas.height=ph}
+    var c=canvas.getContext('2d');
+    c.setTransform(dpr,0,0,dpr,0,0);c.clearRect(0,0,W,H);
+    ang+=dt*(reduce?.06:.24+pulse*.4);
+    var ca=Math.cos(ang),sa=Math.sin(ang),tilt=.42,ct=Math.cos(tilt),st=Math.sin(tilt);
+    var cx=W/2,cy=H/2,R=Math.min(W,H)*.3,u=Math.min(W,H)/420;
+    var band=Math.sin(t*.6)*.9;
+    var p,x,y,z,x1,z1,y2,z2,s,d,sx,sy,rr;
+    
+    // ring
+    var rc=Math.cos(-ang*.6),rs=Math.sin(-ang*.6),t2=1.1,c2=Math.cos(t2),s2=Math.sin(t2);
+    c.fillStyle=cols.ink;
+    for(i=0;i<ring.length;i++){
+      p=ring[i];
+      x=p[0]*rc+p[2]*rs;z=-p[0]*rs+p[2]*rc;y=0;
+      y2=y*c2-z*s2;z2=y*s2+z*c2;
+      s=1.9/(1.9-z2*.55);d=(z2/1.4+1)/2;
+      c.globalAlpha=.08+.5*d*d;
+      c.beginPath();c.arc(cx+x*R*s,cy+y2*R*s,(.5+d*.9)*u*1.4*s,0,6.2832);c.fill();
+    }
+    // sphere dots
+    for(i=0;i<pts.length;i++){
+      p=pts[i];
+      rr=1+pulse*.06+Math.sin(t*1.1+p.y*4)*.014;
+      x=p.x*rr;y=p.y*rr;z=p.z*rr;
+      x1=x*ca+z*sa;z1=-x*sa+z*ca;
+      y2=y*ct-z1*st;z2=y*st+z1*ct;
+      s=1.9/(1.9-z2*.55);d=(z2+1)/2;
+      sx=cx+x1*R*s;sy=cy+y2*R*s;
+      c.globalAlpha=.12+.88*d*d;
+      c.fillStyle=Math.abs(p.y-band)<.05?cols.accent:cols.ink;
+      c.beginPath();c.arc(sx,sy,(.55+d*1.5)*u*1.5*s,0,6.2832);c.fill();
+    }
+    c.globalAlpha=1;
+  };
+}
+var drawHome=makeOrb($('#orbHome'),120);
+
+/* ---------------- Rain Canvas ---------------- */
+var rainCv=$('#rain');
+var drawRain=(function(){
+  var c=rainCv.getContext('2d'),W=0,H=0,dpr=1,streaks=[],drops=[],RGB='190,210,240';
+  function rnd(a,b){return a+Math.random()*(b-a)}
+  function newStreak(init){
+    var z=Math.random();
+    return {x:rnd(-120,W+120),y:init?rnd(-H,H):rnd(-240,-20),len:12+z*40,v:520+z*900,a:.06+z*.2,w:.5+z*1.1};
+  }
+  function resize(){
+    dpr=1;
+    W=window.innerWidth;H=window.innerHeight;
+    rainCv.width=Math.round(W*dpr);rainCv.height=Math.round(H*dpr);
+    var n=Math.round(clamp(W*H/32000,16,36));
+    streaks=[];for(var i=0;i<n;i++){streaks.push(newStreak(true))}
+  }
+  window.addEventListener('resize',resize);
+  resize();
+  function spawn(){
+    if(drops.length>=18) return;
+    var r=rnd(1.6,4.8);
+    drops.push({x:rnd(0,W),y:rnd(0,H*.92),y0:0,r:r,age:0,max:rnd(6,14),slideAt:Math.random()<.35?rnd(1.5,5):-1,vy:0});
+    drops[drops.length-1].y0=drops[drops.length-1].y;
+  }
+  var fn=function(dt,t){
+    var k=reduce?.35:1,wind=.17+Math.sin(t*.2)*.06,i,d,a;
+    c.setTransform(dpr,0,0,dpr,0,0);c.clearRect(0,0,W,H);
+    c.lineCap='round';
+    for(i=0;i<streaks.length;i++){
+      var q=streaks[i];
+      q.y+=q.v*dt*k;q.x+=q.v*wind*dt*k;
+      if(q.y>H+60||q.x>W+160){streaks[i]=newStreak(false);q=streaks[i];q.x=rnd(-160,W)}
+      c.strokeStyle='rgba('+RGB+','+q.a.toFixed(3)+')';
+      c.lineWidth=q.w;
+      c.beginPath();c.moveTo(q.x,q.y);c.lineTo(q.x-q.len*wind,q.y-q.len);c.stroke();
+    }
+    if(Math.random()<dt*(reduce?2:4)){spawn()}
+    for(i=drops.length-1;i>=0;i--){
+      d=drops[i];d.age+=dt;
+      if(d.slideAt>0&&d.age>d.slideAt){d.vy=Math.min(110,d.vy+dt*70);d.y+=d.vy*dt*k}
+      if(d.age>d.max||d.y>H+10){drops.splice(i,1);continue}
+      a=Math.min(1,d.age/.7)*Math.min(1,(d.max-d.age)/1.2);
+      if(d.vy>0){
+        c.strokeStyle='rgba('+RGB+','+(.10*a).toFixed(3)+')';c.lineWidth=d.r*.55;
+        c.beginPath();c.moveTo(d.x,d.y0);c.lineTo(d.x,d.y);c.stroke();
+      }
+      c.fillStyle='rgba(150,180,225,'+(.08*a).toFixed(3)+')';
+      c.beginPath();c.arc(d.x,d.y,d.r,0,6.2832);c.fill();
+      c.lineWidth=1;c.strokeStyle='rgba(210,225,250,'+(.3*a).toFixed(3)+')';
+      c.beginPath();c.arc(d.x,d.y,d.r,3.4,5.0);c.stroke();
+      c.fillStyle='rgba(255,255,255,'+(.55*a).toFixed(3)+')';
+      c.beginPath();c.arc(d.x-d.r*.35,d.y-d.r*.35,Math.max(.6,d.r*.2),0,6.2832);c.fill();
+      c.fillStyle='rgba(255,194,122,'+(.22*a).toFixed(3)+')';
+      c.beginPath();c.arc(d.x+d.r*.3,d.y+d.r*.35,d.r*.28,0,6.2832);c.fill();
+    }
+  };
+  return fn;
+})();
+
+/* ---------------- UI State & Elements ---------------- */
+var home=$('#home'),reader=$('#reader'),grid=$('#grid'),stage=$('#stage'),scroller=$('#scroller'),textEl=$('#text');
+var overlay=$('#overlay'),ovNum=$('#ovNum'),playBtn=$('#play'),wpmIn=$('#wpm'),wpmOut=$('#wpmOut');
+var sampleBtn=$('#sample'),progEl=$('#prog'),rStatus=$('#rStatus'),rCount=$('#rCount');
+var state='ready',cur=0,words=[],mult=[],idx=-1,acc=0,elapsed=0,readerVisible=false,token=0,sampling=false,sTok=0,homeScroll=0;
+
+/* Word Dimensions Cache & Scroll Speed */
+var tops=new Float32Array(0),lefts=new Float32Array(0),widths=new Float32Array(0),heights=new Float32Array(0);
+var cachedScrollSpeed=30;
+
+function updateScrollSpeed(){
+  var n=words.length;
+  if(n>1&&tops.length>=n){
+    var totalDist=(tops[n-1]+heights[n-1]/2)-(tops[0]+heights[0]/2);
+    cachedScrollSpeed=totalDist>0?(totalDist/n)*(P.wpm/60):30*(P.wpm/60);
+  }else{
+    cachedScrollSpeed=30*(P.wpm/60);
+  }
+}
+
+function measure(){
+  var n=words.length;
+  tops=new Float32Array(n);
+  lefts=new Float32Array(n);
+  widths=new Float32Array(n);
+  heights=new Float32Array(n);
+  for(var i=0;i<n;i++){
+    var w=words[i];
+    tops[i]=w.offsetTop;
+    lefts[i]=w.offsetLeft;
+    widths[i]=w.offsetWidth;
+    heights[i]=w.offsetHeight;
+  }
+  updateScrollSpeed();
+}
+
+/* ---------------- Home Grid ---------------- */
+function rhythm(t){
+  var ws=t.text.split(/\s+/).slice(0,30),out='<svg class="c-rhythm" viewBox="0 0 180 42" preserveAspectRatio="xMinYMax meet" aria-hidden="true">';
+  for(var i=0;i<ws.length;i++){
+    var len=ws[i].replace(/\W/g,'').length,h=clamp(len*4,5,38);
+    out+='<rect x="'+(i*6)+'" y="'+(42-h)+'" width="3" height="'+h+'" rx="1.5" fill="currentColor"/>';
+  }
+  return out+'</svg>';
+}
+function renderGrid(){
+  grid.innerHTML='';
+  TOPICS.forEach(function(t,i){
+    var n=wordCount(t),mins=Math.max(1,Math.round(n/P.wpm)),done=P.done[t.id]||0;
+    var card=document.createElement('article');
+    card.className='card';card.tabIndex=0;card.setAttribute('role','button');
+    card.setAttribute('aria-label',t.title+'. '+t.uz+'. Daraja '+t.level);
+    card.style.setProperty('--i',i);
+    card.innerHTML='<div class="c-top"><span class="c-level">'+t.level+'</span>'+(done?'<span class="c-done">'+done+' marta o\'qilgan</span>':'')+'</div>'
+      +'<h3 class="c-title">'+t.title+'</h3><p class="c-uz">'+t.uz+'</p>'+rhythm(t)
+      +'<p class="c-meta"><span>'+n+' so\'z</span><span>'+mins+' daqiqa</span></p>';
+    card.addEventListener('click',function(){openTopic(i)});
+    card.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();openTopic(i)}});
+    grid.appendChild(card);
+  });
+  var st=$('#stat');
+  if(P.sec>0){
+    var m=Math.floor(P.sec/60),s=P.sec%60;
+    st.textContent='Jami mashq: '+m+' daqiqa '+s+' soniya';st.hidden=false;
+  }else{st.hidden=true}
+}
+$('#goTopics').addEventListener('click',function(){
+  $('#topics').scrollIntoView({behavior:reduce?'auto':'smooth',block:'start'});
+});
+
+/* ---------------- Effect Toggle ---------------- */
+var fxToggle=$('#fxToggle');
+function updateFxUI(){
+  if(!fxToggle) return;
+  fxToggle.textContent=P.fx?"Effektlar: Yoqilgan":"Effektlar: O'chirilgan";
+  if(!P.fx){
+    var rc=rainCv.getContext('2d');
+    rc.clearRect(0,0,rainCv.width,rainCv.height);
+    var oh=$('#orbHome');
+    if(oh){
+      var oc=oh.getContext('2d');
+      oc.clearRect(0,0,oh.width,oh.height);
+    }
+  }
+}
+if(fxToggle){
+  fxToggle.addEventListener('click',function(){
+    P.fx=!P.fx;
+    saveProgress();
+    updateFxUI();
+  });
+}
+
+/* ---------------- 3-Promt: Speed Controls (Max 250 WPM) ---------------- */
+function setWpm(v){
+  v=clamp(Math.round(v/5)*5,60,250);
+  P.wpm=v;wpmIn.value=v;wpmOut.textContent=v;
+  var pct=((v-60)/(250-60)*100);
+  wpmIn.style.setProperty('--p',pct.toFixed(1)+'%');
+  var bs=document.querySelectorAll('.speed-presets button');
+  for(var i=0;i<bs.length;i++){
+    bs[i].setAttribute('aria-pressed',String(+bs[i].dataset.wpm===v));
+  }
+  updateScrollSpeed();
+  saveProgress();
+}
+wpmIn.addEventListener('input',function(){setWpm(+wpmIn.value)});
+wpmIn.addEventListener('change',function(){setWpm(+wpmIn.value)});
+document.querySelectorAll('.speed-presets button').forEach(function(b){
+  b.addEventListener('click',function(){setWpm(+b.dataset.wpm)});
+});
+setWpm(P.wpm);
+
+/* ---------------- Reader Logic ---------------- */
+function ov(mode){
+  if(!mode){overlay.hidden=true;return}
+  overlay.hidden=false;overlay.dataset.mode=mode;
+}
+function ui(){
+  var L={ready:'Boshlash',preroll:'Bekor qilish',reading:'Pauza',paused:'Davom etish',done:"Qayta o'qish"};
+  var S={ready:'Tayyor',preroll:'Tinglang',reading:"O'qing",paused:'Pauza',done:'Tugadi'};
+  playBtn.textContent=L[state];rStatus.textContent=S[state];
+  var n=words.length,shown=clamp(idx+1,0,n);
+  rCount.textContent=shown+' / '+n;
+  progEl.style.width=(n?shown/n*100:0)+'%';
+}
+var resizeTimer=0;
+window.addEventListener('resize',function(){
+  clearTimeout(resizeTimer);
+  resizeTimer=setTimeout(function(){
+    measure();
+    if(readerVisible&&state!=='reading'&&words.length){
+      alignToWord(idx<0?0:idx);
+    }
+  },150);
+});
+if(document.fonts&&document.fonts.ready){
+  document.fonts.ready.then(function(){measure();});
+}
+
+function setIdx(i){
+  idx=clamp(i,-1,words.length);
+  ui();
+}
+
+function buildText(t){
+  words=[];mult=[];
+  var frag=document.createDocumentFragment(),parts=t.text.split(/\s+/);
+  parts.forEach(function(w,k){
+    var s=document.createElement('span');s.className='w';s.textContent=w;s.dataset.i=k;
+    frag.appendChild(s);
+    if(k<parts.length-1){frag.appendChild(document.createTextNode(' '))}
+    words.push(s);
+    var m=1,last=w.slice(-1);
+    if(/[.!?]/.test(last)){m=2.1}else if(/[,;:]/.test(last)){m=1.45}
+    if(w.replace(/\W/g,'').length>8){m*=1.2}
+    mult.push(m);
+  });
+  textEl.replaceChildren(frag);
+  measure();
+}
+
+function stopSample(){
+  if(!sampling) return;
+  sampling=false;sTok++;
+  try{window.speechSynthesis&&speechSynthesis.cancel()}catch(e){}
+  sampleBtn.textContent='🎧 Namuna';ui();
+}
+function cancelFlow(){
+  token++;stopSample();
+  try{window.speechSynthesis&&speechSynthesis.cancel()}catch(e){}
+}
+function alignToWord(i){
+  if(!words.length) return;
+  var targetIdx=clamp(i,0,words.length-1);
+  var t=tops[targetIdx]!==undefined?tops[targetIdx]:words[targetIdx].offsetTop;
+  var h=heights[targetIdx]!==undefined?heights[targetIdx]:words[targetIdx].offsetHeight;
+  ty=(stage.clientHeight*.4)-(t+h/2);
+  lastRenderedTy=ty;
+  scroller.style.transform='translate3d(0,'+ty.toFixed(1)+'px,0)';
+}
+
+function openTopic(i){
+  cancelFlow();
+  cur=i;var t=TOPICS[i];
+  homeScroll=window.scrollY||0;
+  $('#rTitle').textContent=t.title;$('#rSub').textContent=t.uz+' · '+t.level;
+  buildText(t);
+  state='ready';idx=-1;acc=0;elapsed=0;
+  ov(null);setIdx(-1);
+  clearAudioUrl();
+  updateDoneAudio();
+  home.hidden=true;reader.hidden=false;readerVisible=true;
+  document.documentElement.classList.add('in-reader');
+  reader.classList.remove('view');void reader.offsetWidth;reader.classList.add('view');
+  window.scrollTo(0,0);
+  ui();
+  requestAnimationFrame(function(){
+    measure();
+    alignToWord(0);
+  });
+  playBtn.focus({preventScroll:true});
+}
+function back(){
+  cancelFlow();
+  if(isRecording) stopRecording();
+  state='ready';readerVisible=false;
+  reader.hidden=true;home.hidden=false;
+  document.documentElement.classList.remove('in-reader');
+  renderGrid();
+  home.classList.remove('view');void home.offsetWidth;home.classList.add('view');
+  window.scrollTo(0,homeScroll);
+}
+function startPreroll(){
+  cancelFlow();state='preroll';var my=token;
+  ov('phrase');ui();
+  setTimeout(function(){if(my===token){countdown(3,my)}},900);
+}
+function countdown(n,my){
+  if(my!==token) return;
+  if(n===0){ov(null);beginReading();return}
+  ov('count');ovNum.textContent=n;
+  ovNum.style.animation='none';void ovNum.offsetWidth;ovNum.style.animation='';
+  setTimeout(function(){countdown(n-1,my)},750);
+}
+function beginReading(){
+  state='reading';acc=0;elapsed=0;
+  var startI=idx<0||idx>=words.length?0:idx;
+  setIdx(startI);
+  alignToWord(startI);
+  pulse=1;
+}
+function pause(){if(state==='reading'){state='paused';ui()}}
+function resume(){if(state==='paused'){state='reading';ui()}}
+function restart(){
+  cancelFlow();state='ready';idx=-1;acc=0;elapsed=0;
+  alignToWord(0);
+  ov(null);setIdx(-1);
+  clearAudioUrl();
+  updateDoneAudio();
+}
+function finish(){
+  state='done';setIdx(words.length);
+  if(isRecording) stopRecording();
+  updateDoneAudio();
+  var t=TOPICS[cur];
+  P.done[t.id]=(P.done[t.id]||0)+1;P.sec+=Math.round(elapsed);saveProgress();
+  var sec=Math.max(1,Math.round(elapsed)),m=Math.floor(sec/60),s=sec%60;
+  $('#doneTime').textContent=m+':'+(s<10?'0':'')+s;
+  $('#doneSub').textContent="O'rtacha tezlik: "+Math.round(words.length/(elapsed/60))+" so'z/daqiqa";
+  ov('done');ui();
+}
+function toggle(){
+  if(state==='ready'){startPreroll()}
+  else if(state==='preroll'){cancelFlow();state='ready';ov(null);ui()}
+  else if(state==='reading'){pause()}
+  else if(state==='paused'){resume()}
+  else if(state==='done'){restart();startPreroll()}
+}
+
+playBtn.addEventListener('click',toggle);
+$('#restart').addEventListener('click',restart);
+$('#back').addEventListener('click',back);
+
+overlay.addEventListener('click',function(e){
+  var b=e.target.closest('[data-act]');if(!b) return;
+  var a=b.dataset.act;
+  if(a==='again'){restart();startPreroll()}
+  else if(a==='next'){openTopic((cur+1)%TOPICS.length)}
+  else if(a==='topics'){back()}
+});
+
+textEl.addEventListener('click',function(e){
+  var w=e.target.closest('.w');
+  if(!w||state==='preroll'||state==='done') return;
+  acc=0;
+  var targetI=+w.dataset.i;
+  setIdx(targetI);
+  alignToWord(targetI);
+});
+
+stage.addEventListener('click',function(e){
+  if(e.target.closest('.w')||e.target.closest('.overlay')) return;
+  if(state==='reading'){pause()}else if(state==='paused'){resume()}
+});
+
+sampleBtn.addEventListener('click',function(){
+  if(sampling){stopSample();return}
+  if(!('speechSynthesis' in window)){return}
+  if(state==='preroll'){cancelFlow();state='ready';ov(null)}
+  pause();
+  sampling=true;var my=++sTok;
+  sampleBtn.textContent="⏹ To'xtatish";ui();
+  var n=words.length;
+  say(TOPICS[cur].text,clamp(P.wpm/165,.6,1.4),function(){
+    if(my===sTok){sampling=false;sampleBtn.textContent='🎧 Namuna';ui()}
+  },n/P.wpm*60000*1.7+3000);
+});
+if(!('speechSynthesis' in window)){sampleBtn.disabled=true;sampleBtn.textContent='Namuna yo\'q'}
+
+/* ---------------- Keys ---------------- */
+document.addEventListener('keydown',function(e){
+  if(!readerVisible) return;
+  var tag=e.target&&e.target.tagName;
+  if(e.code==='Space'){
+    if(tag==='BUTTON'||tag==='INPUT') return;
+    e.preventDefault();toggle();
+  }else if(e.key==='Escape'){
+    back();
+  }else if((e.key==='ArrowUp'||e.key==='ArrowDown')&&tag!=='INPUT'){
+    e.preventDefault();setWpm(P.wpm+(e.key==='ArrowUp'?5:-5));
+  }
+});
+
+/* ---------------- Main Animation Loop ---------------- */
+var last=performance.now(),tAll=0,pulse=0,ty=0,lastRenderedTy=-999999;
+function frame(ts){
+  requestAnimationFrame(frame);
+  var dt=Math.min(.1,(ts-last)/1000);last=ts;tAll+=dt;
+  if(document.hidden) return;
+  pulse*=Math.exp(-dt*5);
+  
+  if(!readerVisible){
+    if(P.fx){
+      drawRain(dt,tAll);
+      drawHome(dt,tAll,0);
+    }
+  }else{
+    if(state==='reading'){
+      elapsed+=dt;acc+=dt;
+      ty-=cachedScrollSpeed*dt;
+      
+      if(Math.abs(ty-lastRenderedTy)>0.1){
+        lastRenderedTy=ty;
+        scroller.style.transform='translate3d(0,'+ty.toFixed(1)+'px,0)';
+      }
+      
+      var need=60/P.wpm,n=words.length;
+      while(state==='reading'&&acc>=need){
+        acc-=need;
+        if(idx+1>=n){finish();break}
+        setIdx(idx+1);pulse=1;
+      }
+    }
+  }
+}
+
+readCols();
+renderGrid();
+updateFxUI();
+requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>
