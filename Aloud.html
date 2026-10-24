@@ -212,16 +212,17 @@ h1{
   flex-direction: column;
   height: 100vh;
   height: calc(100dvh - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px));
-  max-width: 900px;
+  max-width: 380px;
+  width: 100%;
   margin: 0 auto;
-  padding: 16px 24px 20px;
+  padding: 16px 16px 20px;
 }
 
 .reader-header{
   display: grid;
   grid-template-columns: auto 1fr auto;
   align-items: center;
-  gap: 16px;
+  gap: 12px;
   padding-bottom: 14px;
   border-bottom: 1px solid var(--border);
 }
@@ -233,7 +234,7 @@ h1{
 
 .reader-title strong{
   display: block;
-  font-size: 17px;
+  font-size: 16px;
   font-weight: 500;
   letter-spacing: -0.01em;
   white-space: nowrap;
@@ -243,7 +244,7 @@ h1{
 
 .reader-title span{
   display: block;
-  font-size: 12px;
+  font-size: 11px;
   color: var(--muted);
   margin-top: 2px;
 }
@@ -253,7 +254,7 @@ h1{
   font-size: 12px;
   color: var(--muted);
   font-variant-numeric: tabular-nums;
-  min-width: 70px;
+  min-width: 60px;
 }
 
 /* Reading Stage */
@@ -263,6 +264,10 @@ h1{
   min-height: 0;
   overflow: hidden;
   margin-block: 8px;
+  width: 100%;
+  max-width: 360px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /* Static Vignette Gradients */
@@ -294,7 +299,7 @@ h1{
   top: 40%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 140px;
+  width: 110px;
   height: 1px;
   background: var(--text);
   pointer-events: none;
@@ -305,10 +310,10 @@ h1{
 /* Continuous Scroller */
 .scroller{
   position: relative;
-  max-width: 360px; /* Tuned so exactly ~4 words fit per line */
+  max-width: 360px;
   width: 100%;
   margin: 0 auto;
-  padding: 0 16px 70vh;
+  padding: 0 8px 70vh;
   will-change: transform;
   transform: translateZ(0);
   backface-visibility: hidden;
@@ -319,20 +324,23 @@ h1{
 .text-content{
   margin: 0 auto;
   font-weight: 400;
-  font-size: clamp(23px, 4.8vw, 32px);
-  line-height: 1.7;
-  letter-spacing: -0.015em;
-  max-width: 18ch; /* ~4 words per line */
+  font-size: clamp(19px, 4.4vw, 22px);
+  line-height: 1.85;
+  letter-spacing: -0.01em;
+  max-width: 360px;
   text-align: center;
-  word-break: normal;
-  overflow-wrap: break-word;
   color: var(--text);
+}
+
+.line{
+  display: block;
+  white-space: nowrap;
 }
 
 .w{
   display: inline-block;
   color: var(--text);
-  margin: 0 4px;
+  margin: 0 3px;
 }
 
 /* Prompt Banner / Countdown Overlay */
@@ -348,7 +356,7 @@ h1{
 }
 
 .ov-box{
-  max-width: 420px;
+  max-width: 340px;
   width: 100%;
 }
 
@@ -393,25 +401,27 @@ h1{
   border-top: 1px solid var(--border);
   padding-top: 14px;
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  flex-wrap: wrap;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  max-width: 360px;
+  margin: 0 auto;
 }
 
 .ctrl-actions{
-  display: flex;
-  align-items: center;
-  gap: 10px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  width: 100%;
 }
 
 .ctrl-speed{
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
   font-size: 13px;
   color: var(--muted);
-  min-width: 240px;
+  width: 100%;
 }
 
 .ctrl-speed span{
@@ -791,17 +801,23 @@ function buildText(topic){
   var frag = document.createDocumentFragment();
   var parts = topic.text.trim().split(/\s+/);
 
-  parts.forEach(function(wordStr, idx){
-    var span = document.createElement('span');
-    span.className = 'w';
-    span.textContent = wordStr;
-    span.dataset.idx = idx;
-    frag.appendChild(span);
-    if(idx < parts.length - 1){
-      frag.appendChild(document.createTextNode(' '));
-    }
-    words.push(span);
-  });
+  for(var i = 0; i < parts.length; i += 4){
+    var lineDiv = document.createElement('div');
+    lineDiv.className = 'line';
+    var lineParts = parts.slice(i, i + 4);
+    lineParts.forEach(function(wordStr, k){
+      var span = document.createElement('span');
+      span.className = 'w';
+      span.textContent = wordStr;
+      span.dataset.idx = words.length;
+      lineDiv.appendChild(span);
+      if(k < lineParts.length - 1){
+        lineDiv.appendChild(document.createTextNode(' '));
+      }
+      words.push(span);
+    });
+    frag.appendChild(lineDiv);
+  }
 
   textContent.replaceChildren(frag);
   measureGeometry();
