@@ -5,13 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Aloud — AI-Powered English Speaking Practice & Teleprompter</title>
 <meta name="description" content="Master English speaking fluency with comforting daily reflections, guided teleprompter reading, and real-time speed control for CEFR A1-B1 learners.">
-<meta name="keywords" content="English speaking practice, teleprompter, speech fluency, read aloud, CEFR A1 B1, English learning">
+<meta name="keywords" content="English speaking practice, teleprompter, speech fluency, read aloud, voice recording, CEFR A1 B1, English learning">
 <meta name="theme-color" content="#060913">
 
 <!-- Open Graph / Meta -->
 <meta property="og:type" content="website">
-<meta property="og:title" content="Aloud — English Speaking Practice">
-<meta property="og:description" content="Read comforting reflections aloud at your own pace with smart teleprompter scrolling.">
+<meta property="og:title" content="Aloud — English Speaking Practice & Voice Recording">
+<meta property="og:description" content="Read comforting reflections aloud at your own pace with smart teleprompter scrolling and voice recording.">
 
 <!-- Modern Google Fonts: Plus Jakarta Sans (Headings & UI) + Inter (Body & Teleprompter) -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -19,7 +19,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
 
 <style>
-/* ---------------- 2-BOSQICH: DIZAYN TOKENLARI (:root) ---------------- */
+/* ---------------- DIZAYN TOKENLARI (:root) ---------------- */
 :root {
   /* Color Palette - Directly extracted from Reference Design */
   --bg-dark: #060913;
@@ -133,16 +133,16 @@ body {
 .card:focus-visible,
 .btn:focus-visible,
 .filter-btn:focus-visible,
-.search-input:focus-visible,
+.hero-search-input:focus-visible,
 input[type=range]:focus-visible,
-.brand-link:focus-visible {
+.recordings-toggle-btn:focus-visible,
+.brand-link:focus-visible,
+.record-checkbox:focus-visible + .record-toggle-switch {
   outline: 2px solid var(--primary);
   outline-offset: 3px;
 }
 
-/* ---------------- 3-BOSQICH: KOMPONENTLAR TIZIMI ---------------- */
-
-/* Typography Scale */
+/* ---------------- Typography ---------------- */
 h1, h2, h3, h4 {
   font-family: var(--font-heading);
   color: var(--text-primary);
@@ -162,7 +162,7 @@ button {
   background: none;
 }
 
-/* Button System: .btn (primary, secondary, ghost, icon) with min 44px touch target */
+/* Button System: .btn with min 44px touch target */
 .btn {
   display: inline-flex;
   align-items: center;
@@ -240,7 +240,7 @@ button {
   fill: currentColor;
 }
 
-/* ---------------- Modern Floating Navbar (Matching OneText Header) ---------------- */
+/* ---------------- Modern Floating Navbar ---------------- */
 .navbar {
   position: sticky;
   top: 0;
@@ -268,7 +268,6 @@ button {
   text-decoration: none;
 }
 
-/* Logo Badge styled like the White Pill in Reference */
 .brand-bubble {
   background: #FFFFFF;
   color: #060913;
@@ -329,7 +328,7 @@ button {
   box-shadow: 0 0 8px #10B981;
 }
 
-/* ---------------- Home Hero Section (High-End Dark SaaS) ---------------- */
+/* ---------------- Home Hero Section ---------------- */
 .home {
   max-width: 1140px;
   margin: 0 auto;
@@ -341,7 +340,7 @@ button {
 .hero {
   text-align: left;
   max-width: 820px;
-  margin-bottom: var(--space-12);
+  margin-bottom: var(--space-10);
   position: relative;
 }
 
@@ -387,7 +386,7 @@ button {
   margin-bottom: var(--space-8);
 }
 
-/* Hero Search & AI Pill Bar (Matching the OneText input in Reference) */
+/* Search Bar (OneText Style) */
 .hero-input-bar {
   display: flex;
   align-items: center;
@@ -507,7 +506,7 @@ button {
   transition: width 0.3s ease;
 }
 
-/* ---------------- Cards Grid (Matching the Dark Cards in Reference) ---------------- */
+/* ---------------- Cards Grid ---------------- */
 .topics-grid {
   display: grid;
   grid-template-columns: 1fr;
@@ -611,6 +610,19 @@ button {
   border: 1px solid var(--badge-done-border);
 }
 
+.badge-rec {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 9px;
+  border-radius: var(--radius-full);
+  background: rgba(37, 99, 235, 0.15);
+  color: #93C5FD;
+  border: 1px solid rgba(37, 99, 235, 0.3);
+}
+
 .card-title {
   font-size: 20px;
   font-weight: 700;
@@ -666,7 +678,179 @@ button {
   color: #93C5FD;
 }
 
-/* ---------------- 4-BOSQICH: O'QISH MAYDONI (MEXANIKA TEGSIZ SAQLANGAN) ---------------- */
+/* ---------------- "Mening yozuvlarim" Section (Home Page) ---------------- */
+.my-recordings-section {
+  max-width: 1140px;
+  margin: var(--space-10) auto 0;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+
+.recordings-toggle-btn {
+  width: 100%;
+  padding: var(--space-4) var(--space-6);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--surface);
+  border: none;
+  cursor: pointer;
+  min-height: 54px;
+  transition: var(--transition-fast);
+}
+
+.recordings-toggle-btn:hover {
+  background: var(--surface-elevated);
+}
+
+.rec-section-title {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-family: var(--font-heading);
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.rec-section-title svg {
+  width: 18px;
+  height: 18px;
+  fill: var(--primary);
+}
+
+.rec-total-count {
+  font-size: 12px;
+  font-weight: 700;
+  background: var(--primary-subtle);
+  color: #93C5FD;
+  border: 1px solid var(--border-light);
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+}
+
+.accordion-arrow {
+  font-size: 16px;
+  color: var(--text-muted);
+  transition: transform var(--transition-fast);
+}
+
+.recordings-toggle-btn[aria-expanded="true"] .accordion-arrow {
+  transform: rotate(180deg);
+}
+
+.recordings-content {
+  padding: 0 var(--space-6) var(--space-6);
+  border-top: 1px solid var(--border);
+}
+
+.recordings-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-4);
+  padding-top: var(--space-4);
+}
+
+@media (min-width: 768px) {
+  .recordings-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.recording-card {
+  background: var(--surface-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.recording-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+.recording-topic-name {
+  font-family: var(--font-heading);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.recording-meta {
+  font-size: 12px;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+
+.recording-audio {
+  width: 100%;
+  height: 36px;
+  margin-top: 4px;
+  border-radius: var(--radius-sm);
+  outline: none;
+}
+
+.recording-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--space-2);
+  margin-top: 4px;
+}
+
+.btn-rec-action {
+  font-size: 12px;
+  font-weight: 600;
+  font-family: var(--font-heading);
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  min-height: 44px;
+  transition: var(--transition-fast);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.btn-rec-download {
+  background: var(--surface-pill);
+  color: #93C5FD;
+  border: 1px solid var(--border-light);
+}
+
+.btn-rec-download:hover {
+  background: var(--primary);
+  color: #FFFFFF;
+  border-color: var(--primary);
+}
+
+.btn-rec-delete {
+  background: transparent;
+  color: var(--text-muted);
+  border: 1px solid transparent;
+}
+
+.btn-rec-delete:hover {
+  color: #F87171;
+  background: rgba(239, 68, 68, 0.1);
+}
+
+/* ---------------- Reader View (Strictly Preserved 360px Narrow Mechanics) ---------------- */
 .reader {
   display: flex;
   flex-direction: column;
@@ -685,7 +869,7 @@ button {
   justify-content: space-between;
   padding-bottom: var(--space-3);
   border-bottom: 1px solid var(--border);
-  gap: var(--space-4);
+  gap: var(--space-3);
 }
 
 .reader-title {
@@ -714,6 +898,12 @@ button {
   margin-top: 2px;
 }
 
+.reader-header-right {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
 .reader-status {
   text-align: right;
   font-size: 12px;
@@ -725,6 +915,43 @@ button {
   padding: 5px 12px;
   border-radius: var(--radius-full);
   min-width: 60px;
+}
+
+/* REC Badge in Reader Header */
+.rec-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(239, 68, 68, 0.15);
+  border: 1px solid rgba(239, 68, 68, 0.4);
+  color: #F87171;
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+  font-size: 12px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.05em;
+  font-family: var(--font-heading);
+}
+
+.rec-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #EF4444;
+  box-shadow: 0 0 8px #EF4444;
+  animation: recPulse 1s infinite alternate ease-in-out;
+}
+
+@keyframes recPulse {
+  from { opacity: 0.4; transform: scale(0.85); }
+  to { opacity: 1; transform: scale(1.15); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rec-dot {
+    animation: none;
+  }
 }
 
 /* Reading Stage */
@@ -838,20 +1065,22 @@ button {
   display: grid;
   place-items: center;
   text-align: center;
-  padding: var(--space-6);
+  padding: var(--space-4);
   background: rgba(6, 9, 19, 0.96);
   backdrop-filter: blur(8px);
   z-index: 5;
+  overflow-y: auto;
 }
 
 .ov-box {
-  max-width: 380px;
+  max-width: 400px;
   width: 100%;
   background: var(--surface);
   border: 1px solid var(--border-light);
   border-radius: var(--radius-xl);
-  padding: var(--space-8);
+  padding: var(--space-6);
   box-shadow: var(--shadow-lg);
+  margin: auto;
 }
 
 .ov-prompt {
@@ -876,7 +1105,7 @@ button {
 
 .ov-finished-time {
   font-family: var(--font-heading);
-  font-size: 46px;
+  font-size: 44px;
   font-weight: 800;
   letter-spacing: -0.02em;
   color: #60A5FA;
@@ -884,9 +1113,45 @@ button {
 }
 
 .ov-finished-sub {
-  font-size: 14px;
+  font-size: 13px;
   color: var(--text-secondary);
-  margin-bottom: var(--space-6);
+  margin-bottom: var(--space-4);
+}
+
+/* Recording Box inside Finished Modal */
+.done-rec-box {
+  background: var(--surface-elevated);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  padding: var(--space-4);
+  margin-bottom: var(--space-5);
+  text-align: left;
+}
+
+.done-rec-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: var(--space-2);
+}
+
+.done-audio-elem {
+  width: 100%;
+  height: 38px;
+  border-radius: var(--radius-sm);
+  outline: none;
+  margin-bottom: var(--space-3);
+}
+
+.done-rec-actions {
+  display: flex;
+  gap: var(--space-2);
+}
+
+.done-rec-msg {
+  font-size: 12px;
+  margin-top: var(--space-2);
+  color: #60A5FA;
 }
 
 .ov-actions {
@@ -899,11 +1164,88 @@ button {
 /* ---------------- Controls Bar ---------------- */
 .controls {
   border-top: 1px solid var(--border);
-  padding-top: var(--space-4);
+  padding-top: var(--space-3);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  width: 100%;
+}
+
+/* Record Toggle Row inside Controls */
+.ctrl-record-row {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: var(--space-5);
+  width: 100%;
+  padding-bottom: var(--space-2);
+  border-bottom: 1px solid var(--border);
+  font-size: 13px;
+}
+
+.record-toggle-label {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  cursor: pointer;
+  user-select: none;
+  min-height: 44px;
+}
+
+.record-checkbox {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.record-toggle-switch {
+  position: relative;
+  width: 36px;
+  height: 20px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: var(--radius-full);
+  transition: var(--transition-fast);
+  flex-shrink: 0;
+}
+
+.record-toggle-switch::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #FFFFFF;
+  transition: var(--transition-fast);
+}
+
+.record-checkbox:checked + .record-toggle-switch {
+  background: var(--primary);
+  box-shadow: 0 0 10px var(--primary-glow);
+}
+
+.record-checkbox:checked + .record-toggle-switch::after {
+  transform: translateX(16px);
+}
+
+.record-toggle-text {
+  font-weight: 600;
+  color: var(--text-primary);
+  font-family: var(--font-heading);
+}
+
+.record-status-hint {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+/* Controls Action Row */
+.controls-bottom-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
   width: 100%;
 }
 
@@ -1020,6 +1362,61 @@ input[type=range]::-moz-range-thumb {
   cursor: grab;
 }
 
+/* ---------------- Privacy Notice Modal ---------------- */
+.privacy-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(6px);
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  padding: var(--space-4);
+}
+
+.privacy-modal-box {
+  background: var(--surface);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-lg);
+  max-width: 440px;
+  width: 100%;
+  padding: var(--space-6);
+  box-shadow: var(--shadow-lg);
+  text-align: center;
+}
+
+.privacy-modal-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--primary-subtle);
+  color: #60A5FA;
+  display: grid;
+  place-items: center;
+  margin: 0 auto var(--space-3);
+}
+
+.privacy-modal-icon svg {
+  width: 24px;
+  height: 24px;
+  fill: currentColor;
+}
+
+.privacy-modal-title {
+  font-family: var(--font-heading);
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: var(--space-2);
+}
+
+.privacy-modal-desc {
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.55;
+  margin-bottom: var(--space-5);
+}
+
 /* ---------------- Responsive Styles (Desktop & Mobile) ---------------- */
 @media (min-width: 768px) {
   .desktop-hints {
@@ -1053,7 +1450,7 @@ input[type=range]::-moz-range-thumb {
     padding: var(--space-3) var(--space-4) calc(var(--space-3) + env(safe-area-inset-bottom, 0px));
   }
   
-  .controls {
+  .controls-bottom-row {
     flex-direction: column;
     align-items: stretch;
     gap: var(--space-3);
@@ -1136,15 +1533,15 @@ input[type=range]::-moz-range-thumb {
   <header class="hero">
     <div class="hero-chip">
       <span class="hero-chip-badge">AI</span>
-      <span>Fluency Teleprompter Studio</span>
+      <span>Fluency Teleprompter & Voice Studio</span>
     </div>
     <h1 class="hero-title">Speak English with Calm, Natural Fluency.</h1>
     <p class="hero-subtitle">
       Ten honest, comforting reflections for CEFR A1–B1 learners. 
-      Read aloud at your own comfortable pace with real-time teleprompter guidance.
+      Read aloud at your own comfortable pace, record your voice, and build lasting speech confidence.
     </p>
 
-    <!-- Search / Filter Pill Input (OneText Style) -->
+    <!-- Search / Filter Pill Input -->
     <div class="hero-input-bar">
       <span class="input-ai-tag">AI+</span>
       <input type="search" id="searchInput" class="hero-search-input" placeholder="Search reflections by topic or keyword..." aria-label="Search lessons">
@@ -1177,13 +1574,28 @@ input[type=range]::-moz-range-thumb {
 
   <!-- Topics Cards Grid -->
   <section class="topics-grid" id="topicsGrid" aria-label="Speaking practice lessons"></section>
+
+  <!-- "Mening yozuvlarim" Section (Hidden when empty) -->
+  <section class="my-recordings-section" id="myRecordingsSection" hidden aria-label="Saved voice recordings">
+    <button class="recordings-toggle-btn" id="btnToggleRecordingsList" type="button" aria-expanded="false" aria-controls="recordingsContent">
+      <div class="rec-section-title">
+        <svg viewBox="0 0 24 24"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3zm5.3 7.3a1 1 0 0 0-2 0A5.3 5.3 0 0 1 10 14.6a5.3 5.3 0 0 1-5.3-5.3 1 1 0 0 0-2 0 7.3 7.3 0 0 0 6.3 7.2V19H7a1 1 0 1 0 0 2h10a1 1 0 1 0 0-2h-2v-2.5a7.3 7.3 0 0 0 6.3-7.2z"/></svg>
+        <span>Mening yozuvlarim</span>
+        <span class="rec-total-count" id="recTotalCount">0</span>
+      </div>
+      <span class="accordion-arrow" id="recAccordionArrow">↓</span>
+    </button>
+    <div class="recordings-content" id="recordingsContent" hidden>
+      <div class="recordings-list" id="recordingsList"></div>
+    </div>
+  </section>
 </main>
 
 <!-- Footer -->
 <footer class="footer" id="mainFooter">
   <div class="footer-content">
     <p>Aloud — Minimalist speaking practice for English learners worldwide.</p>
-    <p>Client-side · Private · High performance</p>
+    <p>100% Client-side · Ovoz yozuvlari faqat sizning qurilmangizda saqlanadi · Private & Fast</p>
   </div>
 </footer>
 
@@ -1195,8 +1607,16 @@ input[type=range]::-moz-range-thumb {
       <strong id="readerTitle"></strong>
       <span id="readerSub"></span>
     </div>
-    <div class="reader-status">
-      <span id="readerProgress">0 / 0</span>
+    <div class="reader-header-right">
+      <!-- REC Pulsing Indicator (shown during recording) -->
+      <div class="rec-badge" id="recBadge" hidden aria-live="polite">
+        <span class="rec-dot"></span>
+        <span>REC</span>
+        <span id="recTimer">0:00</span>
+      </div>
+      <div class="reader-status">
+        <span id="readerProgress">0 / 0</span>
+      </div>
     </div>
   </header>
 
@@ -1222,6 +1642,22 @@ input[type=range]::-moz-range-thumb {
         <h2 style="font-size:24px;font-weight:700;margin-bottom:8px;color:var(--text-primary)">Lesson Complete</h2>
         <div class="ov-finished-time" id="doneTime">0:00</div>
         <div class="ov-finished-sub" id="doneSpeed">Average speed: 60 wpm</div>
+
+        <!-- Recorded Audio Player in Finished Modal -->
+        <div class="done-rec-box" id="doneRecBox" hidden>
+          <p class="done-rec-title">🎙 Dars davomidagi ovozingiz:</p>
+          <audio id="doneAudioElem" controls class="done-audio-elem" preload="metadata"></audio>
+          <div class="done-rec-actions">
+            <button class="btn primary" id="btnSaveRecording" type="button" style="min-height:40px;font-size:13px;flex:1;">
+              <span>💾 Yozuvni saqlash</span>
+            </button>
+            <button class="btn secondary" id="btnDiscardRecording" type="button" style="min-height:40px;font-size:13px;">
+              <span>🗑 O'chirish</span>
+            </button>
+          </div>
+          <p class="done-rec-msg" id="doneRecMsg"></p>
+        </div>
+
         <div class="ov-actions">
           <button class="btn primary" id="btnReadAgain" type="button">
             <span>Practice Again</span>
@@ -1237,22 +1673,49 @@ input[type=range]::-moz-range-thumb {
   </div>
 
   <div class="controls">
-    <div class="ctrl-actions">
-      <button class="btn primary" id="btnTogglePlay" type="button">Pause</button>
-      <button class="btn secondary" id="btnRestart" type="button">Restart</button>
+    <!-- Voice Record Toggle Row -->
+    <div class="ctrl-record-row" id="ctrlRecordRow">
+      <label class="record-toggle-label" for="recordToggle">
+        <input type="checkbox" id="recordToggle" class="record-checkbox">
+        <span class="record-toggle-switch"></span>
+        <span class="record-toggle-text">🎙 Ovozimni yozish</span>
+      </label>
+      <span class="record-status-hint" id="recordStatusHint">O'qish paytida yoziladi</span>
     </div>
 
-    <div class="desktop-hints">
-      <span>Shortcuts: <b>[Space]</b> Play/Pause · <b>[Esc]</b> Back · <b>[↑ / ↓]</b> Speed</span>
-    </div>
+    <!-- Bottom Controls Row -->
+    <div class="controls-bottom-row">
+      <div class="ctrl-actions">
+        <button class="btn primary" id="btnTogglePlay" type="button">Pause</button>
+        <button class="btn secondary" id="btnRestart" type="button">Restart</button>
+      </div>
 
-    <div class="ctrl-speed">
-      <label for="wpmSlider" class="speed-label">Speed:</label>
-      <input id="wpmSlider" type="range" min="60" max="250" step="5" value="60" aria-label="Reading speed slider">
-      <span class="speed-indicator"><output id="wpmOutput">60</output> <span class="unit">wpm</span></span>
+      <div class="desktop-hints">
+        <span>Shortcuts: <b>[Space]</b> Play/Pause · <b>[Esc]</b> Back · <b>[↑ / ↓]</b> Speed</span>
+      </div>
+
+      <div class="ctrl-speed">
+        <label for="wpmSlider" class="speed-label">Speed:</label>
+        <input id="wpmSlider" type="range" min="60" max="250" step="5" value="60" aria-label="Reading speed slider">
+        <span class="speed-indicator"><output id="wpmOutput">60</output> <span class="unit">wpm</span></span>
+      </div>
     </div>
   </div>
 </main>
+
+<!-- Privacy Notice Modal -->
+<div class="privacy-modal" id="privacyModal" hidden role="dialog" aria-modal="true" aria-labelledby="privTitle">
+  <div class="privacy-modal-box">
+    <div class="privacy-modal-icon">
+      <svg viewBox="0 0 24 24"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3zm5.3 7.3a1 1 0 0 0-2 0A5.3 5.3 0 0 1 10 14.6a5.3 5.3 0 0 1-5.3-5.3 1 1 0 0 0-2 0 7.3 7.3 0 0 0 6.3 7.2V19H7a1 1 0 1 0 0 2h10a1 1 0 1 0 0-2h-2v-2.5a7.3 7.3 0 0 0 6.3-7.2z"/></svg>
+    </div>
+    <h3 class="privacy-modal-title" id="privTitle">Ovoz yozish haqida</h3>
+    <p class="privacy-modal-desc">
+      Ovozingiz faqat o'zingiz tinglashingiz va nutqingizni tahlil qilishingiz uchun yoziladi. Barcha yozuvlar 100% sizning qurilmangizdagi ichki xotirada (IndexedDB) saqlanadi va internetga yoki hech qanday serverga yuborilmaydi.
+    </p>
+    <button class="btn primary" id="btnPrivacyOk" type="button" style="width:100%;">Tushundim</button>
+  </div>
+</div>
 
 <script>
 (function(){
@@ -1338,6 +1801,8 @@ function $$(sel){ return document.querySelectorAll(sel); }
 
 var STORAGE_KEY = 'aloud_settings_v4';
 var DONE_KEY = 'aloud_done_v1';
+var RECORD_PREF_KEY = 'aloud_record_pref';
+var PRIVACY_NOTICE_KEY = 'aloud_record_notice_shown';
 
 var S = { wpm: 60 };
 try {
@@ -1368,6 +1833,185 @@ function markLessonDone(id){
       localStorage.setItem(DONE_KEY, JSON.stringify(list));
     }
   } catch(e){}
+}
+
+/* ---------------- 4. INDEXEDDB DATABASE (Max 3 recordings per lesson) ---------------- */
+var DB_NAME = 'aloud_recordings';
+var DB_VERSION = 1;
+var STORE_NAME = 'recordings';
+
+function openDB(){
+  return new Promise(function(resolve, reject){
+    if(!('indexedDB' in window)){
+      return reject(new Error('IndexedDB not supported'));
+    }
+    var req = indexedDB.open(DB_NAME, DB_VERSION);
+    req.onupgradeneeded = function(e){
+      var db = e.target.result;
+      if(!db.objectStoreNames.contains(STORE_NAME)){
+        var store = db.createObjectStore(STORE_NAME, { keyPath: 'id' });
+        store.createIndex('topicId', 'topicId', { unique: false });
+        store.createIndex('createdAt', 'createdAt', { unique: false });
+      }
+    };
+    req.onsuccess = function(e){ resolve(e.target.result); };
+    req.onerror = function(e){ reject(e.target.error); };
+  });
+}
+
+function getAllRecordings(){
+  return openDB().then(function(db){
+    return new Promise(function(resolve, reject){
+      var tx = db.transaction(STORE_NAME, 'readonly');
+      var store = tx.objectStore(STORE_NAME);
+      var req = store.getAll();
+      req.onsuccess = function(){ resolve(req.result || []); };
+      req.onerror = function(){ reject(req.error); };
+    });
+  }).catch(function(){ return []; });
+}
+
+function getTopicRecordings(topicId){
+  return getAllRecordings().then(function(list){
+    return list.filter(function(r){ return r.topicId === topicId; })
+               .sort(function(a, b){ return a.createdAt - b.createdAt; });
+  });
+}
+
+function saveRecordingToDB(rec){
+  return openDB().then(function(db){
+    return getTopicRecordings(rec.topicId).then(function(existing){
+      var oldestRemoved = false;
+      var deletePromise = Promise.resolve();
+      if(existing.length >= 3){
+        var oldest = existing[0];
+        deletePromise = new Promise(function(res, rej){
+          var txDel = db.transaction(STORE_NAME, 'readwrite');
+          txDel.objectStore(STORE_NAME).delete(oldest.id);
+          txDel.oncomplete = function(){ oldestRemoved = true; res(); };
+          txDel.onerror = function(){ rej(txDel.error); };
+        });
+      }
+      return deletePromise.then(function(){
+        return new Promise(function(res, rej){
+          var txAdd = db.transaction(STORE_NAME, 'readwrite');
+          txAdd.objectStore(STORE_NAME).add(rec);
+          txAdd.oncomplete = function(){ res({ oldestRemoved: oldestRemoved }); };
+          txAdd.onerror = function(){ rej(txAdd.error); };
+        });
+      });
+    });
+  });
+}
+
+function deleteRecordingFromDB(id){
+  return openDB().then(function(db){
+    return new Promise(function(resolve, reject){
+      var tx = db.transaction(STORE_NAME, 'readwrite');
+      tx.objectStore(STORE_NAME).delete(id);
+      tx.oncomplete = function(){ resolve(); };
+      tx.onerror = function(){ reject(tx.error); };
+    });
+  });
+}
+
+/* ---------------- 1. AUDIO RECORDING ENGINE (MediaRecorder & Permissions) ---------------- */
+function getSupportedMimeType(){
+  if(typeof MediaRecorder === 'undefined') return '';
+  var candidates = [
+    'audio/webm;codecs=opus',
+    'audio/webm',
+    'audio/mp4',
+    'audio/ogg;codecs=opus',
+    'audio/aac'
+  ];
+  for(var i = 0; i < candidates.length; i++){
+    if(MediaRecorder.isTypeSupported(candidates[i])) return candidates[i];
+  }
+  return '';
+}
+
+var mediaRecorder = null;
+var audioChunks = [];
+var recordStream = null;
+var recordTimerInterval = 0;
+var recordedDurationSec = 0;
+var currentSessionBlob = null;
+var currentSessionAudioUrl = null;
+
+function cleanupRecording(discard){
+  if(recordTimerInterval){ clearInterval(recordTimerInterval); recordTimerInterval = 0; }
+  recBadge.hidden = true;
+  if(mediaRecorder){
+    try {
+      if(discard) mediaRecorder.onstop = null;
+      if(mediaRecorder.state !== 'inactive') mediaRecorder.stop();
+    } catch(e){}
+    mediaRecorder = null;
+  }
+  if(recordStream){
+    recordStream.getTracks().forEach(function(t){ t.stop(); });
+    recordStream = null;
+  }
+}
+
+function startAudioRecordingSession(){
+  if(!recordToggle.checked) return;
+  if(!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia){
+    recordStatusHint.textContent = "MediaRecorder qo'llanmaydi";
+    return;
+  }
+
+  recordStatusHint.textContent = "Mikrofon ulanmoqda...";
+  navigator.mediaDevices.getUserMedia({ audio: true }).then(function(stream){
+    recordStream = stream;
+    var mimeType = getSupportedMimeType();
+    audioChunks = [];
+
+    try {
+      mediaRecorder = mimeType ? new MediaRecorder(stream, { mimeType: mimeType }) : new MediaRecorder(stream);
+    } catch(e){
+      mediaRecorder = new MediaRecorder(stream);
+    }
+
+    mediaRecorder.ondataavailable = function(e){
+      if(e.data && e.data.size > 0){
+        audioChunks.push(e.data);
+      }
+    };
+
+    mediaRecorder.onstop = function(){
+      var type = mediaRecorder.mimeType || 'audio/webm';
+      currentSessionBlob = new Blob(audioChunks, { type: type });
+      if(currentSessionAudioUrl) URL.revokeObjectURL(currentSessionAudioUrl);
+      currentSessionAudioUrl = URL.createObjectURL(currentSessionBlob);
+
+      doneAudioElem.src = currentSessionAudioUrl;
+      doneRecBox.hidden = false;
+      doneRecMsg.textContent = "";
+      btnSaveRecording.disabled = false;
+      btnSaveRecording.querySelector('span').textContent = "💾 Yozuvni saqlash";
+    };
+
+    mediaRecorder.start(250);
+    recordedDurationSec = 0;
+    recBadge.hidden = false;
+    recTimer.textContent = "0:00";
+    recordStatusHint.textContent = "Yozilmoqda...";
+
+    recordTimerInterval = setInterval(function(){
+      if(state === 'reading' && mediaRecorder && mediaRecorder.state === 'recording'){
+        recordedDurationSec++;
+        var m = Math.floor(recordedDurationSec / 60);
+        var s = recordedDurationSec % 60;
+        recTimer.textContent = m + ':' + (s < 10 ? '0' : '') + s;
+      }
+    }, 1000);
+
+  }).catch(function(err){
+    recordStatusHint.textContent = "Mikrofonga ruxsat berilmadi";
+    recBadge.hidden = true;
+  });
 }
 
 /* ---------------- Web Speech API (Female Voice: "Speak slowly and clearly") ---------------- */
@@ -1436,9 +2080,17 @@ var progressChip = $('#progressChip');
 var progressText = $('#progressText');
 var progressFill = $('#progressFill');
 
+var myRecordingsSection = $('#myRecordingsSection');
+var btnToggleRecordingsList = $('#btnToggleRecordingsList');
+var recordingsContent = $('#recordingsContent');
+var recordingsList = $('#recordingsList');
+var recTotalCount = $('#recTotalCount');
+
 var readerTitle = $('#readerTitle');
 var readerSub = $('#readerSub');
 var readerProgress = $('#readerProgress');
+var recBadge = $('#recBadge');
+var recTimer = $('#recTimer');
 
 var stage = $('#stage');
 var scroller = $('#scroller');
@@ -1451,6 +2103,12 @@ var ovDoneBox = $('#ovDoneBox');
 var doneTime = $('#doneTime');
 var doneSpeed = $('#doneSpeed');
 
+var doneRecBox = $('#doneRecBox');
+var doneAudioElem = $('#doneAudioElem');
+var btnSaveRecording = $('#btnSaveRecording');
+var btnDiscardRecording = $('#btnDiscardRecording');
+var doneRecMsg = $('#doneRecMsg');
+
 var btnTogglePlay = $('#btnTogglePlay');
 var btnRestart = $('#btnRestart');
 var btnBack = $('#btnBack');
@@ -1458,6 +2116,13 @@ var btnReadAgain = $('#btnReadAgain');
 var btnNextTopic = $('#btnNextTopic');
 var btnDoneBack = $('#btnDoneBack');
 var brandLink = $('#brandLink');
+
+var recordToggle = $('#recordToggle');
+var recordStatusHint = $('#recordStatusHint');
+var ctrlRecordRow = $('#ctrlRecordRow');
+
+var privacyModal = $('#privacyModal');
+var btnPrivacyOk = $('#btnPrivacyOk');
 
 var wpmSlider = $('#wpmSlider');
 var wpmOutput = $('#wpmOutput');
@@ -1478,6 +2143,128 @@ var elapsed = 0;
 var acc = 0;
 var sessionToken = 0;
 var readerVisible = false;
+
+/* ---------------- Initialize Recording Preference ---------------- */
+if(!navigator.mediaDevices || typeof MediaRecorder === 'undefined'){
+  ctrlRecordRow.hidden = true;
+} else {
+  var savedRecPref = localStorage.getItem(RECORD_PREF_KEY) === '1';
+  recordToggle.checked = savedRecPref;
+  recordStatusHint.textContent = savedRecPref ? "Yozuv yoqilgan" : "O'chiq";
+
+  recordToggle.addEventListener('change', function(){
+    var isChecked = recordToggle.checked;
+    try { localStorage.setItem(RECORD_PREF_KEY, isChecked ? '1' : '0'); } catch(e){}
+    recordStatusHint.textContent = isChecked ? "Yozuv yoqilgan" : "O'chiq";
+
+    if(isChecked && !localStorage.getItem(PRIVACY_NOTICE_KEY)){
+      privacyModal.hidden = false;
+    }
+  });
+}
+
+btnPrivacyOk.addEventListener('click', function(){
+  privacyModal.hidden = true;
+  try { localStorage.setItem(PRIVACY_NOTICE_KEY, '1'); } catch(e){}
+});
+
+/* ---------------- 5. HOME RECORDINGS LIST & CARD BADGES ---------------- */
+function loadHomeRecordings(){
+  getAllRecordings().then(function(records){
+    // Update topic cards badges
+    var countsByTopic = {};
+    records.forEach(function(r){
+      countsByTopic[r.topicId] = (countsByTopic[r.topicId] || 0) + 1;
+    });
+
+    $$('.card').forEach(function(card){
+      var tId = card.dataset.topicId;
+      var count = countsByTopic[tId] || 0;
+      var existingBadge = card.querySelector('.badge-rec');
+      if(count > 0){
+        if(!existingBadge){
+          var badge = document.createElement('span');
+          badge.className = 'badge-rec';
+          badge.textContent = '🎙 ' + count;
+          var badgesWrap = card.querySelector('.card-badges');
+          if(badgesWrap) badgesWrap.appendChild(badge);
+        } else {
+          existingBadge.textContent = '🎙 ' + count;
+        }
+      } else if(existingBadge){
+        existingBadge.remove();
+      }
+    });
+
+    // Update "Mening yozuvlarim" section
+    if(!records.length){
+      myRecordingsSection.hidden = true;
+      return;
+    }
+
+    myRecordingsSection.hidden = false;
+    recTotalCount.textContent = records.length;
+    recordingsList.innerHTML = '';
+
+    // Sort descending by date
+    var sorted = records.slice().sort(function(a, b){ return b.createdAt - a.createdAt; });
+
+    sorted.forEach(function(rec){
+      var topic = TOPICS.find(function(t){ return t.id === rec.topicId; }) || { title: 'Lesson', level: 'A1' };
+      var dateObj = new Date(rec.createdAt);
+      var dateStr = dateObj.toLocaleDateString('uz-UZ', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+      var m = Math.floor(rec.durationSec / 60);
+      var s = rec.durationSec % 60;
+      var durStr = (m > 0 ? (m + ' daq ') : '') + s + ' soniya';
+
+      var card = document.createElement('div');
+      card.className = 'recording-card';
+
+      var audioSrc = URL.createObjectURL(rec.blob);
+      var ext = (rec.mimeType && rec.mimeType.indexOf('mp4') !== -1) ? 'mp4' : 'webm';
+      var downloadName = 'aloud-' + rec.topicId + '-' + dateObj.toISOString().slice(0, 10) + '.' + ext;
+
+      card.innerHTML = 
+        '<div class="recording-card-header">' +
+          '<span class="recording-topic-name">' + topic.title + '</span>' +
+          '<span class="level-badge ' + topic.level + '">' + topic.level + '</span>' +
+        '</div>' +
+        '<div class="recording-meta">' +
+          '<span>' + dateStr + '</span>' +
+          '<span>·</span>' +
+          '<span>' + durStr + '</span>' +
+          '<span>·</span>' +
+          '<span>' + (rec.wpm || S.wpm) + ' wpm</span>' +
+        '</div>' +
+        '<audio controls class="recording-audio" src="' + audioSrc + '" preload="metadata"></audio>' +
+        '<div class="recording-actions">' +
+          '<a class="btn-rec-action btn-rec-download" href="' + audioSrc + '" download="' + downloadName + '">' +
+            '<span>Yuklab olish</span>' +
+          '</a>' +
+          '<button class="btn-rec-action btn-rec-delete" type="button">' +
+            '<span>O\'chirish</span>' +
+          '</button>' +
+        '</div>';
+
+      var btnDelete = card.querySelector('.btn-rec-delete');
+      btnDelete.addEventListener('click', function(){
+        if(confirm("Ushbu ovoz yozuvini rostdan ham o'chirmoqchimisiz?")){
+          deleteRecordingFromDB(rec.id).then(function(){
+            loadHomeRecordings();
+          });
+        }
+      });
+
+      recordingsList.appendChild(card);
+    });
+  });
+}
+
+btnToggleRecordingsList.addEventListener('click', function(){
+  var isExpanded = btnToggleRecordingsList.getAttribute('aria-expanded') === 'true';
+  btnToggleRecordingsList.setAttribute('aria-expanded', !isExpanded);
+  recordingsContent.hidden = isExpanded;
+});
 
 /* ---------------- Progress Road Tracker ---------------- */
 function updateProgressRoad(){
@@ -1550,6 +2337,7 @@ function renderHome(){
     var card = document.createElement('article');
     card.className = 'card';
     card.dataset.wordCount = wordCount;
+    card.dataset.topicId = item.id;
     card.tabIndex = 0;
     card.setAttribute('aria-label', (origIdx + 1) + '. ' + item.title + ' (' + item.level + ')');
 
@@ -1587,6 +2375,7 @@ function renderHome(){
   });
 
   updateProgressRoad();
+  loadHomeRecordings();
 }
 
 // Filter button events
@@ -1671,6 +2460,15 @@ function openTopic(idx){
   curTopicIdx = idx;
   var topic = TOPICS[idx];
 
+  // Clean previous recording
+  cleanupRecording(true);
+  doneRecBox.hidden = true;
+  if(currentSessionAudioUrl){
+    URL.revokeObjectURL(currentSessionAudioUrl);
+    currentSessionAudioUrl = null;
+  }
+  currentSessionBlob = null;
+
   readerTitle.textContent = topic.title;
   readerSub.textContent = 'Lesson ' + (idx + 1) + ' · ' + topic.level;
 
@@ -1722,12 +2520,18 @@ function startReading(){
   state = 'reading';
   alignToWord(currentWordIdx);
   updateButtonLabels();
+
+  // START RECORDING ONLY AFTER COUNTDOWN FINISHES!
+  startAudioRecordingSession();
 }
 
 function pauseReading(){
   if(state === 'reading'){
     state = 'paused';
     updateButtonLabels();
+    if(mediaRecorder && mediaRecorder.state === 'recording'){
+      try { mediaRecorder.pause(); } catch(e){}
+    }
   }
 }
 
@@ -1735,6 +2539,9 @@ function resumeReading(){
   if(state === 'paused'){
     state = 'reading';
     updateButtonLabels();
+    if(mediaRecorder && mediaRecorder.state === 'paused'){
+      try { mediaRecorder.resume(); } catch(e){}
+    }
   }
 }
 
@@ -1751,6 +2558,10 @@ function togglePlayPause(){
 function restartReading(){
   sessionToken++;
   if('speechSynthesis' in window) window.speechSynthesis.cancel();
+  
+  // Discard incomplete recording
+  cleanupRecording(true);
+
   currentWordIdx = 0;
   elapsed = 0;
   acc = 0;
@@ -1779,6 +2590,17 @@ function finishReading(){
   // Save completed lesson to localStorage
   markLessonDone(TOPICS[curTopicIdx].id);
 
+  // Stop recording and let onstop handle creating the blob
+  if(recordTimerInterval){ clearInterval(recordTimerInterval); recordTimerInterval = 0; }
+  recBadge.hidden = true;
+  if(mediaRecorder && mediaRecorder.state !== 'inactive'){
+    try { mediaRecorder.stop(); } catch(e){}
+  }
+  if(recordStream){
+    recordStream.getTracks().forEach(function(t){ t.stop(); });
+    recordStream = null;
+  }
+
   var sec = Math.max(1, Math.round(elapsed));
   var m = Math.floor(sec / 60);
   var s = sec % 60;
@@ -1792,9 +2614,58 @@ function finishReading(){
   overlay.hidden = false;
 }
 
+/* Save / Discard buttons in Finished Box */
+btnSaveRecording.addEventListener('click', function(){
+  if(!currentSessionBlob) return;
+  var recData = {
+    id: Date.now(),
+    topicId: TOPICS[curTopicIdx].id,
+    createdAt: Date.now(),
+    durationSec: Math.max(1, Math.round(recordedDurationSec)),
+    wpm: S.wpm,
+    mimeType: currentSessionBlob.type,
+    blob: currentSessionBlob
+  };
+
+  saveRecordingToDB(recData).then(function(res){
+    btnSaveRecording.querySelector('span').textContent = "✓ Saqlandi";
+    btnSaveRecording.disabled = true;
+    if(res && res.oldestRemoved){
+      doneRecMsg.textContent = "Dars uchun 3 ta yozuv to'ldi: eng eski yozuv almashtirildi.";
+    } else {
+      doneRecMsg.textContent = "Yozuv kutubxonangizga saqlandi.";
+    }
+    loadHomeRecordings();
+  }).catch(function(){
+    doneRecMsg.textContent = "Yozuvni saqlab bo'lmadi (xotira xatosi).";
+  });
+});
+
+btnDiscardRecording.addEventListener('click', function(){
+  doneAudioElem.pause();
+  doneAudioElem.src = "";
+  if(currentSessionAudioUrl){
+    URL.revokeObjectURL(currentSessionAudioUrl);
+    currentSessionAudioUrl = null;
+  }
+  currentSessionBlob = null;
+  doneRecBox.hidden = true;
+});
+
 function backToHome(){
   sessionToken++;
   if('speechSynthesis' in window) window.speechSynthesis.cancel();
+  
+  // Discard and clean recording
+  cleanupRecording(true);
+  doneAudioElem.pause();
+  doneAudioElem.src = "";
+  if(currentSessionAudioUrl){
+    URL.revokeObjectURL(currentSessionAudioUrl);
+    currentSessionAudioUrl = null;
+  }
+  currentSessionBlob = null;
+
   state = 'ready';
   readerVisible = false;
 
@@ -1890,7 +2761,7 @@ document.addEventListener('keydown', function(e){
   if(!readerVisible) return;
   var tag = e.target && e.target.tagName;
   if(e.code === 'Space'){
-    if(tag === 'BUTTON' || tag === 'INPUT') return;
+    if(tag === 'BUTTON' || tag === 'INPUT' || tag === 'AUDIO') return;
     e.preventDefault();
     togglePlayPause();
   } else if(e.key === 'Escape'){
