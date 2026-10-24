@@ -3,62 +3,52 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Aloud — Professional English Speaking Practice & Teleprompter</title>
-<meta name="description" content="Master English speaking fluency with comforting daily reflections, guided teleprompter reading, and real-time speed control for CEFR A1-B1 learners.">
+<title>Aloud — Minimalist English Speaking Practice & Teleprompter</title>
+<meta name="description" content="Master English speaking fluency with calming daily reflections, guided teleprompter reading, and real-time speed control for CEFR A1-B1 learners.">
 <meta name="keywords" content="English speaking practice, teleprompter, speech fluency, read aloud, CEFR A1 B1, English learning">
-<meta name="theme-color" content="#2563EB">
+<meta name="theme-color" content="#FFFFFF">
 
 <!-- Open Graph / Meta -->
 <meta property="og:type" content="website">
 <meta property="og:title" content="Aloud — English Speaking Practice">
 <meta property="og:description" content="Read comforting reflections aloud at your own pace with smart teleprompter scrolling.">
 
-<!-- Modern Google Fonts: Inter (400, 500, 600, 700) + Plus Jakarta Sans (500, 600, 700, 800) -->
+<!-- Modern Google Fonts: Inter (400, 500, 600, 700) -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
 <style>
-/* ---------------- CSS Custom Properties & Design System ---------------- */
+/* ---------------- Minimalist Design System (Pure White & Clean Typography) ---------------- */
 :root {
-  --primary: #2563EB;
-  --primary-hover: #1D4ED8;
-  --primary-light: #EFF6FF;
-  --primary-border: #BFDBFE;
-  
-  --level-a1-bg: #ECFDF5;
-  --level-a1-text: #059669;
-  --level-a1-border: #A7F3D0;
-  
-  --level-a2-bg: #EFF6FF;
-  --level-a2-text: #2563EB;
-  --level-a2-border: #BFDBFE;
-  
-  --level-b1-bg: #F5F3FF;
-  --level-b1-text: #7C3AED;
-  --level-b1-border: #DDD6FE;
-
-  --bg: #F8FAFC;
+  --bg: #FFFFFF;
   --surface: #FFFFFF;
-  --text: #0F172A;
-  --text-secondary: #475569;
-  --muted: #64748B;
-  --border: #E2E8F0;
-  --border-subtle: #F1F5F9;
-
-  --shadow-sm: 0 1px 3px 0 rgba(15, 23, 42, 0.06), 0 1px 2px -1px rgba(15, 23, 42, 0.04);
-  --shadow-md: 0 4px 6px -1px rgba(15, 23, 42, 0.07), 0 2px 4px -2px rgba(15, 23, 42, 0.05);
-  --shadow-lg: 0 16px 32px -4px rgba(15, 23, 42, 0.1), 0 6px 12px -2px rgba(15, 23, 42, 0.05);
-  --shadow-hover: 0 14px 28px -4px rgba(37, 99, 235, 0.14), 0 6px 12px -2px rgba(37, 99, 235, 0.08);
-
-  --radius-sm: 8px;
-  --radius-md: 12px;
-  --radius-lg: 16px;
+  --surface-subtle: #F9FAFB;
+  --surface-hover: #F3F4F6;
+  
+  --text: #111827;
+  --text-secondary: #4B5563;
+  --muted: #9CA3AF;
+  
+  --border: #E5E7EB;
+  --border-subtle: #F3F4F6;
+  --border-dark: #111827;
+  
+  --primary: #111827;
+  --primary-hover: #000000;
+  --accent: #2563EB;
+  
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
   --radius-full: 9999px;
 
-  --font-heading: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  --transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.06), 0 2px 4px -2px rgba(0, 0, 0, 0.04);
+  --shadow-hover: 0 8px 16px -2px rgba(0, 0, 0, 0.08);
+
+  --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --transition: all 0.16s ease;
 }
 
 *, *::before, *::after {
@@ -68,7 +58,7 @@
 }
 
 html {
-  font-family: var(--font-body);
+  font-family: var(--font);
   background-color: var(--bg);
   color: var(--text);
   -webkit-font-smoothing: antialiased;
@@ -90,25 +80,11 @@ body {
   color: var(--text);
 }
 
-body.in-reader {
-  background-color: #FFFFFF;
-}
-
-@media (min-width: 700px) {
-  body.in-reader {
-    background-color: var(--bg);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-  }
-}
-
 [hidden] {
   display: none !important;
 }
 
-/* ---------------- Focus Visible (Accessibility) ---------------- */
+/* Accessibility Focus Visible */
 .card:focus-visible,
 .btn:focus-visible,
 .filter-btn:focus-visible,
@@ -119,9 +95,8 @@ input[type=range]:focus-visible,
   outline-offset: 3px;
 }
 
-/* ---------------- Typography & Buttons ---------------- */
+/* ---------------- Typography ---------------- */
 h1, h2, h3, h4 {
-  font-family: var(--font-heading);
   color: var(--text);
   font-weight: 700;
   letter-spacing: -0.025em;
@@ -139,14 +114,15 @@ button {
   background: none;
 }
 
+/* ---------------- Minimalist Buttons ---------------- */
 .btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
   font-size: 14px;
-  font-weight: 600;
-  padding: 10px 18px;
+  font-weight: 500;
+  padding: 9px 18px;
   border-radius: var(--radius-full);
   border: 1px solid var(--border);
   background: var(--surface);
@@ -157,26 +133,23 @@ button {
 }
 
 .btn:hover {
-  background: var(--border-subtle);
-  border-color: #CBD5E1;
-  transform: translateY(-1px);
+  background: var(--surface-hover);
+  border-color: #D1D5DB;
 }
 
 .btn:active {
-  transform: translateY(0);
+  transform: translateY(1px);
 }
 
 .btn.primary {
   background: var(--primary);
   color: #FFFFFF;
   border-color: var(--primary);
-  box-shadow: 0 2px 4px rgba(37, 99, 235, 0.2);
 }
 
 .btn.primary:hover {
   background: var(--primary-hover);
   border-color: var(--primary-hover);
-  box-shadow: 0 4px 8px rgba(37, 99, 235, 0.3);
 }
 
 .btn.text-link {
@@ -187,26 +160,23 @@ button {
 }
 
 .btn.text-link:hover {
-  color: var(--primary);
-  background: var(--primary-light);
+  color: var(--text);
+  background: var(--surface-subtle);
 }
 
-/* ---------------- SaaS Top Navigation ---------------- */
+/* ---------------- Desktop & Mobile Navigation ---------------- */
 .navbar {
   position: sticky;
   top: 0;
   z-index: 40;
-  background: rgba(255, 255, 255, 0.88);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background: #FFFFFF;
   border-bottom: 1px solid var(--border);
-  transition: var(--transition);
 }
 
 .nav-container {
-  max-width: 1120px;
+  max-width: 1140px;
   margin: 0 auto;
-  padding: 14px 24px;
+  padding: 16px 24px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -221,26 +191,24 @@ button {
   color: var(--text);
 }
 
-.brand-icon {
-  width: 34px;
-  height: 34px;
-  border-radius: 10px;
-  background: linear-gradient(135deg, #2563EB, #1D4ED8);
+.brand-badge {
+  width: 28px;
+  height: 28px;
+  border-radius: var(--radius-sm);
+  background: var(--primary);
+  color: #FFFFFF;
   display: grid;
   place-items: center;
-  color: #FFFFFF;
-  box-shadow: 0 2px 6px rgba(37, 99, 235, 0.3);
 }
 
-.brand-icon svg {
-  width: 18px;
-  height: 18px;
+.brand-badge svg {
+  width: 16px;
+  height: 16px;
   fill: currentColor;
 }
 
 .brand-text {
-  font-family: var(--font-heading);
-  font-size: 20px;
+  font-size: 19px;
   font-weight: 800;
   letter-spacing: -0.03em;
   color: var(--text);
@@ -251,9 +219,9 @@ button {
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  background: var(--primary-light);
-  color: var(--primary);
-  border: 1px solid var(--primary-border);
+  background: var(--surface-subtle);
+  color: var(--text-secondary);
+  border: 1px solid var(--border);
   padding: 2px 8px;
   border-radius: var(--radius-full);
 }
@@ -263,20 +231,19 @@ button {
   align-items: center;
   gap: 8px;
   font-size: 13px;
-  font-weight: 500;
-  color: var(--muted);
+  color: var(--text-secondary);
 }
 
 .stat-pill {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  background: var(--surface);
+  background: var(--surface-subtle);
   border: 1px solid var(--border);
-  padding: 5px 12px;
+  padding: 4px 12px;
   border-radius: var(--radius-full);
   font-size: 12px;
-  box-shadow: var(--shadow-sm);
+  font-weight: 500;
 }
 
 .stat-dot {
@@ -286,56 +253,47 @@ button {
   background: #10B981;
 }
 
-/* ---------------- Home Hero Section with Indigo Radial Light ---------------- */
+/* ---------------- Home Layout (Desktop & Mobile Optimized) ---------------- */
 .home {
-  max-width: 1120px;
+  max-width: 1140px;
   margin: 0 auto;
-  padding: 44px 24px 80px;
+  padding: 48px 24px 80px;
   width: 100%;
   flex: 1;
 }
 
+/* Hero Section (Clean Minimalist White) */
 .hero {
   text-align: center;
   max-width: 760px;
-  margin: 0 auto 36px;
-  padding: 28px 16px 12px;
-  position: relative;
-  border-radius: var(--radius-lg);
-  background: radial-gradient(circle at 50% 20%, rgba(37, 99, 235, 0.14) 0%, rgba(37, 99, 235, 0) 70%);
+  margin: 0 auto 40px;
 }
 
 .hero-pill {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  padding: 5px 14px;
+  gap: 6px;
+  padding: 4px 12px;
   border-radius: var(--radius-full);
-  background: var(--primary-light);
-  border: 1px solid var(--primary-border);
-  color: var(--primary);
-  font-size: 13px;
-  font-weight: 600;
+  background: var(--surface-subtle);
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  font-size: 12px;
+  font-weight: 500;
   margin-bottom: 20px;
 }
 
 .hero-title {
-  font-size: clamp(32px, 5.5vw, 52px);
+  font-size: clamp(30px, 4.8vw, 48px);
   font-weight: 800;
   line-height: 1.15;
   letter-spacing: -0.035em;
-  margin-bottom: 18px;
+  margin-bottom: 16px;
   color: var(--text);
 }
 
-.hero-title .gradient-text {
-  background: linear-gradient(135deg, #2563EB 0%, #7C3AED 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
 .hero-subtitle {
-  font-size: clamp(16px, 2.2vw, 19px);
+  font-size: clamp(15px, 2vw, 18px);
   color: var(--text-secondary);
   line-height: 1.6;
   margin-bottom: 24px;
@@ -345,7 +303,7 @@ button {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 14px;
+  gap: 12px;
   flex-wrap: wrap;
 }
 
@@ -358,28 +316,25 @@ button {
   font-weight: 500;
   background: var(--surface);
   border: 1px solid var(--border);
-  padding: 6px 14px;
+  padding: 5px 12px;
   border-radius: var(--radius-full);
-  box-shadow: var(--shadow-sm);
 }
 
 .feature-tag svg {
-  width: 15px;
-  height: 15px;
+  width: 14px;
+  height: 14px;
   color: var(--primary);
   flex-shrink: 0;
 }
 
-/* ---------------- Overall Progress Road Bar ---------------- */
+/* ---------------- Progress Bar (Clean & Lightweight) ---------------- */
 .progress-section {
-  max-width: 680px;
+  max-width: 600px;
   margin: 0 auto 36px;
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius-md);
-  padding: 14px 18px;
-  box-shadow: var(--shadow-sm);
-  transition: var(--transition);
+  padding: 12px 18px;
 }
 
 .progress-meta {
@@ -393,9 +348,6 @@ button {
 
 .progress-title {
   color: var(--text);
-  display: flex;
-  align-items: center;
-  gap: 6px;
 }
 
 .progress-pct {
@@ -405,32 +357,31 @@ button {
 
 .progress-bar-track {
   width: 100%;
-  height: 6px;
-  background: var(--border-subtle);
+  height: 4px;
+  background: var(--border);
   border-radius: var(--radius-full);
   overflow: hidden;
 }
 
 .progress-bar-fill {
   height: 100%;
-  background: linear-gradient(90deg, #2563EB, #7C3AED);
+  background: var(--primary);
   border-radius: var(--radius-full);
-  transition: width 0.4s ease;
+  transition: width 0.3s ease;
 }
 
-/* ---------------- Filter & Search Bar ---------------- */
+/* ---------------- Filters & Search Bar (Desktop & Mobile Responsive) ---------------- */
 .filter-section {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 16px;
-  margin-bottom: 30px;
+  margin-bottom: 32px;
   flex-wrap: wrap;
   padding: 8px;
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius-md);
-  box-shadow: var(--shadow-sm);
 }
 
 .level-filters {
@@ -442,39 +393,41 @@ button {
 
 .filter-btn {
   font-size: 13px;
-  font-weight: 600;
-  padding: 7px 14px;
-  border-radius: var(--radius-sm);
+  font-weight: 500;
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
   color: var(--text-secondary);
+  background: var(--surface-subtle);
+  border: 1px solid var(--border);
   transition: var(--transition);
 }
 
 .filter-btn:hover {
+  background: var(--surface-hover);
   color: var(--text);
-  background: var(--border-subtle);
 }
 
 .filter-btn.active {
   background: var(--primary);
   color: #FFFFFF;
-  box-shadow: 0 1px 3px rgba(37, 99, 235, 0.25);
+  border-color: var(--primary);
 }
 
 .search-box {
   position: relative;
-  min-width: 240px;
+  min-width: 220px;
   flex: 1;
-  max-width: 320px;
+  max-width: 300px;
 }
 
 .search-input {
   width: 100%;
   font-family: inherit;
   font-size: 13px;
-  padding: 8px 12px 8px 34px;
-  border-radius: var(--radius-sm);
+  padding: 8px 12px 8px 32px;
+  border-radius: var(--radius-full);
   border: 1px solid var(--border);
-  background: var(--bg);
+  background: var(--surface-subtle);
   color: var(--text);
   outline: none;
   transition: var(--transition);
@@ -483,7 +436,6 @@ button {
 .search-input:focus {
   border-color: var(--primary);
   background: #FFFFFF;
-  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
 }
 
 .search-icon {
@@ -491,40 +443,30 @@ button {
   left: 10px;
   top: 50%;
   transform: translateY(-50%);
-  width: 15px;
-  height: 15px;
+  width: 14px;
+  height: 14px;
   color: var(--muted);
   pointer-events: none;
 }
 
-/* ---------------- Topics Cards Grid (1 col mobile, 2 col tablet, 3 col desktop) ---------------- */
+/* ---------------- Topics Cards Grid (3 col desktop, 2 col tablet, 1 col mobile) ---------------- */
 .topics-grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 22px;
+  gap: 20px;
 }
 
 @media (min-width: 640px) {
   .topics-grid {
     grid-template-columns: repeat(2, 1fr);
+    gap: 22px;
   }
 }
 
 @media (min-width: 1024px) {
   .topics-grid {
     grid-template-columns: repeat(3, 1fr);
-  }
-}
-
-/* Card Animation (Fade-in-up with stagger) */
-@keyframes cardFadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(14px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
+    gap: 24px;
   }
 }
 
@@ -539,17 +481,12 @@ button {
   transition: var(--transition);
   box-shadow: var(--shadow-sm);
   position: relative;
-  overflow: hidden;
   user-select: none;
 }
 
-.card-animate {
-  animation: cardFadeInUp 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-
 .card:hover {
-  transform: translateY(-4px);
-  border-color: var(--primary-border);
+  border-color: var(--primary);
+  transform: translateY(-2px);
   box-shadow: var(--shadow-hover);
 }
 
@@ -557,21 +494,14 @@ button {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 12px;
+  margin-bottom: 14px;
 }
 
 .card-num-big {
-  font-family: var(--font-heading);
-  font-size: 26px;
-  font-weight: 800;
-  line-height: 1;
-  letter-spacing: -0.03em;
-  color: #93C5FD;
-  transition: color 0.2s ease;
-}
-
-.card:hover .card-num-big {
-  color: var(--primary);
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--muted);
+  letter-spacing: -0.02em;
 }
 
 .card-badges {
@@ -581,29 +511,13 @@ button {
 }
 
 .level-badge {
-  font-size: 12px;
-  font-weight: 700;
-  padding: 3px 10px;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 8px;
   border-radius: var(--radius-full);
-  letter-spacing: 0.03em;
-}
-
-.level-badge.A1 {
-  background: var(--level-a1-bg);
-  color: var(--level-a1-text);
-  border: 1px solid var(--level-a1-border);
-}
-
-.level-badge.A2 {
-  background: var(--level-a2-bg);
-  color: var(--level-a2-text);
-  border: 1px solid var(--level-a2-border);
-}
-
-.level-badge.B1 {
-  background: var(--level-b1-bg);
-  color: var(--level-b1-text);
-  border: 1px solid var(--level-b1-border);
+  background: var(--surface-subtle);
+  color: var(--text-secondary);
+  border: 1px solid var(--border);
 }
 
 .badge-done {
@@ -611,33 +525,28 @@ button {
   align-items: center;
   gap: 3px;
   font-size: 11px;
-  font-weight: 700;
+  font-weight: 600;
   padding: 2px 8px;
   border-radius: var(--radius-full);
-  background: #ECFDF5;
-  color: #059669;
-  border: 1px solid #A7F3D0;
+  background: #F0FDF4;
+  color: #166534;
+  border: 1px solid #BBF7D0;
 }
 
 .card-title {
-  font-size: 20px;
+  font-size: 19px;
   font-weight: 700;
   letter-spacing: -0.02em;
   line-height: 1.3;
   margin-bottom: 8px;
   color: var(--text);
-  transition: color 0.18s ease;
-}
-
-.card:hover .card-title {
-  color: var(--primary);
 }
 
 .card-desc {
   font-size: 14px;
   color: var(--text-secondary);
   line-height: 1.55;
-  margin-bottom: 22px;
+  margin-bottom: 24px;
   flex-grow: 1;
 }
 
@@ -652,86 +561,57 @@ button {
 .card-meta-info {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
   font-size: 12px;
   color: var(--muted);
   font-weight: 500;
 }
 
-.card-circle-btn {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  background: var(--primary-light);
+.card-cta-btn {
+  font-size: 13px;
+  font-weight: 600;
   color: var(--primary);
-  border: 1px solid var(--primary-border);
-  display: grid;
-  place-items: center;
-  transition: var(--transition);
-  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  transition: transform 0.15s ease;
 }
 
-.card-circle-btn svg {
-  width: 16px;
-  height: 16px;
-  transition: transform 0.2s ease;
+.card:hover .card-cta-btn {
+  transform: translateX(3px);
 }
 
-.card:hover .card-circle-btn {
-  background: var(--primary);
-  color: #FFFFFF;
-  border-color: var(--primary);
-  transform: scale(1.06);
-  box-shadow: 0 4px 10px rgba(37, 99, 235, 0.35);
-}
-
-.card:hover .card-circle-btn svg {
-  transform: translateX(2px);
-}
-
-/* ---------------- Reader View (Strictly Preserved 360px Narrow Mechanics) ---------------- */
+/* ---------------- Reader View (Desktop for Desktop, Mobile for Mobile) ---------------- */
 .reader {
   display: flex;
   flex-direction: column;
   height: 100vh;
-  height: calc(100dvh - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px));
-  max-width: 380px;
+  height: 100dvh;
   width: 100%;
+  max-width: 860px;
   margin: 0 auto;
-  padding: 16px 16px 20px;
+  padding: 20px 24px;
   background: #FFFFFF;
 }
 
-@media (min-width: 700px) {
-  .reader {
-    max-width: 380px;
-    height: min(780px, calc(100vh - 48px));
-    border: 1px solid var(--border);
-    border-radius: 20px;
-    box-shadow: var(--shadow-lg);
-    background: #FFFFFF;
-    margin: auto;
-  }
-}
-
 .reader-header {
-  display: grid;
-  grid-template-columns: auto 1fr auto;
+  display: flex;
   align-items: center;
-  gap: 12px;
-  padding-bottom: 12px;
+  justify-content: space-between;
+  padding-bottom: 14px;
   border-bottom: 1px solid var(--border);
+  gap: 16px;
 }
 
 .reader-title {
   text-align: center;
   min-width: 0;
+  flex: 1;
 }
 
 .reader-title strong {
   display: block;
-  font-family: var(--font-heading);
-  font-size: 16px;
+  font-size: 17px;
   font-weight: 700;
   letter-spacing: -0.015em;
   white-space: nowrap;
@@ -742,7 +622,7 @@ button {
 
 .reader-title span {
   display: block;
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 500;
   color: var(--muted);
   margin-top: 2px;
@@ -750,15 +630,15 @@ button {
 
 .reader-status {
   text-align: right;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 600;
-  color: var(--primary);
-  background: var(--primary-light);
-  padding: 3px 8px;
-  border-radius: var(--radius-full);
-  border: 1px solid var(--primary-border);
+  color: var(--text);
   font-variant-numeric: tabular-nums;
-  min-width: 58px;
+  background: var(--surface-subtle);
+  border: 1px solid var(--border);
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+  min-width: 60px;
 }
 
 /* Reading Stage */
@@ -767,22 +647,18 @@ button {
   flex: 1;
   min-height: 0;
   overflow: hidden;
-  margin-block: 8px;
+  margin-block: 10px;
   width: 100%;
-  max-width: 360px;
-  margin-left: auto;
-  margin-right: auto;
   background: #FFFFFF;
-  border-radius: var(--radius-md);
 }
 
-/* Vignette Gradients */
+/* Vignette Gradients (Fade top & bottom) */
 .stage-gradient-top {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
-  height: 60px;
+  height: 70px;
   background: linear-gradient(to bottom, #FFFFFF 0%, rgba(255, 255, 255, 0) 100%);
   pointer-events: none;
   z-index: 2;
@@ -793,7 +669,7 @@ button {
   bottom: 0;
   left: 0;
   right: 0;
-  height: 60px;
+  height: 70px;
   background: linear-gradient(to top, #FFFFFF 0%, rgba(255, 255, 255, 0) 100%);
   pointer-events: none;
   z-index: 2;
@@ -807,14 +683,14 @@ button {
   transform: translate(-50%, -50%);
   width: 110px;
   height: 2px;
-  background: var(--primary);
+  background: var(--text);
   border-radius: var(--radius-full);
   pointer-events: none;
   z-index: 2;
-  opacity: 0.85;
+  opacity: 0.8;
 }
 
-/* Continuous Scroller */
+/* Continuous Scroller (Centering strictly 4 words per line) */
 .scroller {
   position: relative;
   max-width: 360px;
@@ -828,12 +704,11 @@ button {
   text-align: center;
 }
 
-/* Responsive 4-words text container that fits 320px phone comfortably */
 .text-content {
   margin: 0 auto;
   font-weight: 500;
-  font-size: clamp(15px, 4.2vw, 21px);
-  line-height: 1.8;
+  font-size: clamp(16px, 4.4vw, 22px);
+  line-height: 1.85;
   letter-spacing: -0.01em;
   max-width: 360px;
   text-align: center;
@@ -855,6 +730,7 @@ button {
 
 .w:hover {
   color: var(--primary);
+  text-decoration: underline;
 }
 
 @media (max-width: 360px) {
@@ -865,12 +741,9 @@ button {
   .w {
     margin: 0 1.5px;
   }
-  .scroller {
-    padding: 0 4px 70vh;
-  }
 }
 
-/* Prompt Banner / Countdown Overlay */
+/* Overlay for Preroll & Finished */
 .overlay {
   position: absolute;
   inset: 0;
@@ -879,18 +752,16 @@ button {
   text-align: center;
   padding: 24px;
   background: rgba(255, 255, 255, 0.98);
-  backdrop-filter: blur(8px);
   z-index: 5;
 }
 
 .ov-box {
-  max-width: 340px;
+  max-width: 360px;
   width: 100%;
 }
 
 .ov-prompt {
-  font-family: var(--font-heading);
-  font-size: clamp(24px, 5.5vw, 34px);
+  font-size: clamp(24px, 5.5vw, 32px);
   font-weight: 700;
   letter-spacing: -0.025em;
   line-height: 1.25;
@@ -899,24 +770,16 @@ button {
 }
 
 .ov-count {
-  font-family: var(--font-heading);
-  font-size: 76px;
-  font-weight: 700;
+  font-size: 72px;
+  font-weight: 800;
   line-height: 1;
   color: var(--primary);
   margin: 16px 0;
-  animation: pulseScale 0.6s infinite alternate ease-in-out;
-}
-
-@keyframes pulseScale {
-  from { transform: scale(1); }
-  to { transform: scale(1.08); }
 }
 
 .ov-finished-time {
-  font-family: var(--font-heading);
   font-size: 48px;
-  font-weight: 700;
+  font-weight: 800;
   letter-spacing: -0.02em;
   color: var(--primary);
   margin-bottom: 6px;
@@ -935,23 +798,28 @@ button {
   flex-direction: column;
 }
 
-/* Controls */
+/* ---------------- Reader Controls (Spacious Desktop, Ergonomic Mobile) ---------------- */
 .controls {
   border-top: 1px solid var(--border);
-  padding-top: 14px;
+  padding-top: 16px;
   display: flex;
-  flex-direction: column;
-  gap: 12px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
   width: 100%;
-  max-width: 360px;
-  margin: 0 auto;
 }
 
 .ctrl-actions {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
+  align-items: center;
   gap: 10px;
-  width: 100%;
+}
+
+.desktop-hints {
+  display: none;
+  font-size: 12px;
+  color: var(--muted);
+  user-select: none;
 }
 
 .ctrl-speed {
@@ -959,14 +827,14 @@ button {
   align-items: center;
   gap: 12px;
   font-size: 13px;
-  color: var(--muted);
-  width: 100%;
+  color: var(--text-secondary);
+  min-width: 240px;
 }
 
 .speed-label {
   font-size: 13px;
   font-weight: 600;
-  color: var(--text-secondary);
+  color: var(--text);
   flex-shrink: 0;
   user-select: none;
 }
@@ -1010,47 +878,103 @@ button {
   color: var(--muted);
 }
 
+/* Range Slider Styling */
 input[type=range]::-webkit-slider-runnable-track {
-  height: 4px;
+  height: 3px;
   background: var(--border);
   border-radius: var(--radius-full);
 }
 
 input[type=range]::-moz-range-track {
-  height: 4px;
+  height: 3px;
   background: var(--border);
   border-radius: var(--radius-full);
 }
 
 input[type=range]::-webkit-slider-thumb {
   -webkit-appearance: none;
-  width: 18px;
-  height: 18px;
-  margin-top: -7px;
+  width: 16px;
+  height: 16px;
+  margin-top: -6.5px;
   border-radius: 50%;
   background: var(--primary);
   border: 2px solid #FFFFFF;
-  box-shadow: 0 2px 4px rgba(37, 99, 235, 0.3);
+  box-shadow: var(--shadow-sm);
   cursor: grab;
-  transition: transform 0.1s ease;
 }
 
 input[type=range]:active::-webkit-slider-thumb {
   cursor: grabbing;
-  transform: scale(1.15);
 }
 
 input[type=range]::-moz-range-thumb {
-  width: 18px;
-  height: 18px;
+  width: 16px;
+  height: 16px;
   border-radius: 50%;
   background: var(--primary);
   border: 2px solid #FFFFFF;
-  box-shadow: 0 2px 4px rgba(37, 99, 235, 0.3);
+  box-shadow: var(--shadow-sm);
   cursor: grab;
 }
 
-/* ---------------- SaaS Footer ---------------- */
+/* ---------------- Desktop vs Mobile Media Queries ---------------- */
+/* Desktop Enhancements (768px+) */
+@media (min-width: 768px) {
+  .desktop-hints {
+    display: block;
+  }
+}
+
+/* Mobile Enhancements (< 768px) */
+@media (max-width: 767px) {
+  .home {
+    padding: 24px 16px 60px;
+  }
+  
+  .filter-section {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+  
+  .level-filters {
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    padding-bottom: 4px;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  .filter-btn {
+    white-space: nowrap;
+  }
+  
+  .search-box {
+    max-width: 100%;
+  }
+
+  .reader {
+    padding: 14px 16px calc(14px + env(safe-area-inset-bottom, 0px));
+  }
+  
+  .controls {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+  
+  .ctrl-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    width: 100%;
+  }
+  
+  .ctrl-speed {
+    width: 100%;
+  }
+}
+
+/* ---------------- Footer ---------------- */
 .footer {
   margin-top: auto;
   border-top: 1px solid var(--border);
@@ -1062,7 +986,7 @@ input[type=range]::-moz-range-thumb {
 }
 
 .footer-content {
-  max-width: 1120px;
+  max-width: 1140px;
   margin: 0 auto;
   display: flex;
   align-items: center;
@@ -1071,31 +995,7 @@ input[type=range]::-moz-range-thumb {
   flex-wrap: wrap;
 }
 
-/* ---------------- Reduced Motion ---------------- */
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
-    animation: none !important;
-    transition: none !important;
-  }
-  .card-animate {
-    opacity: 1 !important;
-    transform: none !important;
-  }
-}
-
-/* ---------------- Responsive Tweaks ---------------- */
 @media (max-width: 640px) {
-  .hero {
-    margin-bottom: 24px;
-    padding: 16px 12px;
-  }
-  .filter-section {
-    flex-direction: column;
-    align-items: stretch;
-  }
-  .search-box {
-    max-width: 100%;
-  }
   .footer-content {
     flex-direction: column;
     text-align: center;
@@ -1109,7 +1009,7 @@ input[type=range]::-moz-range-thumb {
 <nav class="navbar" id="navbar">
   <div class="nav-container">
     <a href="#" class="nav-brand brand-link" id="brandLink">
-      <div class="brand-icon" aria-hidden="true">
+      <div class="brand-badge" aria-hidden="true">
         <svg viewBox="0 0 24 24"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3zm5.3 7.3a1 1 0 0 0-2 0A5.3 5.3 0 0 1 10 14.6a5.3 5.3 0 0 1-5.3-5.3 1 1 0 0 0-2 0 7.3 7.3 0 0 0 6.3 7.2V19H7a1 1 0 1 0 0 2h10a1 1 0 1 0 0-2h-2v-2.5a7.3 7.3 0 0 0 6.3-7.2z"/></svg>
       </div>
       <span class="brand-text">Aloud</span>
@@ -1127,20 +1027,20 @@ input[type=range]::-moz-range-thumb {
 
 <!-- Home View -->
 <main id="homeView" class="home">
-  <!-- SaaS Hero with Light Indigo Glow -->
+  <!-- Minimalist Hero -->
   <header class="hero">
     <div class="hero-pill">
-      <span>✨ Speaking Confidence Builder</span>
+      <span>Speaking Confidence Studio</span>
     </div>
-    <h1 class="hero-title">Speak English with <span class="gradient-text">Natural Fluency</span></h1>
+    <h1 class="hero-title">Speak English with Natural Fluency</h1>
     <p class="hero-subtitle">
-      Ten comforting, motivational reflections designed for CEFR A1–B1 learners. 
+      Ten honest, comforting reflections for CEFR A1–B1 learners. 
       Read aloud at your own comfortable pace with real-time teleprompter guidance.
     </p>
     <div class="hero-features">
       <div class="feature-tag">
         <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
-        <span>10 Heartfelt Topics</span>
+        <span>10 Selected Reflections</span>
       </div>
       <div class="feature-tag">
         <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"/></svg>
@@ -1153,7 +1053,7 @@ input[type=range]::-moz-range-thumb {
     </div>
   </header>
 
-  <!-- Overall Progress Tracker (Hidden if 0 completed) -->
+  <!-- Overall Progress Tracker (Minimalist) -->
   <section class="progress-section" id="progressSection" hidden aria-label="Learning progress">
     <div class="progress-meta">
       <span class="progress-title" id="progressText">0 / 10 lessons completed</span>
@@ -1186,15 +1086,15 @@ input[type=range]::-moz-range-thumb {
 <!-- Footer -->
 <footer class="footer" id="mainFooter">
   <div class="footer-content">
-    <p>Aloud — Built for English learners to build speaking confidence every single day.</p>
-    <p>Zero backend · 100% Client-side · Private practice</p>
+    <p>Aloud — Minimalist speaking practice for English learners worldwide.</p>
+    <p>Client-side · Private · High performance</p>
   </div>
 </footer>
 
-<!-- Reader View (Preserved 360px centered narrow container) -->
+<!-- Reader View (Desktop for Desktop, Mobile for Mobile) -->
 <main id="readerView" class="reader" hidden>
   <header class="reader-header">
-    <button class="btn text-link" id="btnBack" type="button">← Back</button>
+    <button class="btn text-link" id="btnBack" type="button">← Back to Lessons</button>
     <div class="reader-title">
       <strong id="readerTitle"></strong>
       <span id="readerSub"></span>
@@ -1222,14 +1122,14 @@ input[type=range]::-moz-range-thumb {
         <div class="ov-count" id="ovCountdown">3</div>
       </div>
       <div class="ov-box" id="ovDoneBox" hidden>
-        <div style="font-size:36px;margin-bottom:8px">🎉</div>
-        <h2 style="font-size:24px;font-weight:700;margin-bottom:12px;color:var(--text)">Well Done!</h2>
+        <div style="font-size:32px;margin-bottom:8px">✓</div>
+        <h2 style="font-size:24px;font-weight:700;margin-bottom:8px;color:var(--text)">Lesson Complete</h2>
         <div class="ov-finished-time" id="doneTime">0:00</div>
         <div class="ov-finished-sub" id="doneSpeed">Average speed: 60 wpm</div>
         <div class="ov-actions">
           <button class="btn primary" id="btnReadAgain" type="button">Practice Again</button>
           <button class="btn" id="btnNextTopic" type="button">Next Lesson →</button>
-          <button class="btn text-link" id="btnDoneBack" type="button">Back to Topics</button>
+          <button class="btn text-link" id="btnDoneBack" type="button">Back to Lessons</button>
         </div>
       </div>
     </div>
@@ -1239,6 +1139,10 @@ input[type=range]::-moz-range-thumb {
     <div class="ctrl-actions">
       <button class="btn primary" id="btnTogglePlay" type="button">Pause</button>
       <button class="btn" id="btnRestart" type="button">Restart</button>
+    </div>
+
+    <div class="desktop-hints">
+      <span>Shortcut keys: <b>[Space]</b> Play/Pause · <b>[Esc]</b> Back · <b>[↑ / ↓]</b> Speed</span>
     </div>
 
     <div class="ctrl-speed">
@@ -1410,7 +1314,7 @@ function speakPrompt(onDone){
 
     utterance.onend = finish;
     utterance.onerror = finish;
-    setTimeout(finish, 2200); // Safety fallback
+    setTimeout(finish, 2200);
 
     window.speechSynthesis.speak(utterance);
   } catch(e){
@@ -1497,7 +1401,7 @@ function updateProgressRoad(){
   }
 }
 
-/* ---------------- Update Card Estimated Times on Speed Change ---------------- */
+/* ---------------- Dynamic Card Time Updater ---------------- */
 function updateAllCardTimes(){
   var cards = $$('.card');
   cards.forEach(function(card){
@@ -1510,7 +1414,7 @@ function updateAllCardTimes(){
   });
 }
 
-/* ---------------- Home Topics Grid & Filter ---------------- */
+/* ---------------- Home Topics Grid (Desktop & Mobile Optimized) ---------------- */
 function renderHome(){
   var query = (searchInput.value || '').trim().toLowerCase();
   var doneList = getDoneLessons();
@@ -1536,7 +1440,7 @@ function renderHome(){
     return;
   }
 
-  filtered.forEach(function(entry, staggerIndex){
+  filtered.forEach(function(entry){
     var item = entry.item;
     var origIdx = entry.originalIdx;
     var wordCount = item.text.trim().split(/\s+/).length;
@@ -1544,22 +1448,20 @@ function renderHome(){
     var isDone = doneList.indexOf(item.id) !== -1;
 
     var card = document.createElement('article');
-    card.className = 'card card-animate';
+    card.className = 'card';
     card.dataset.wordCount = wordCount;
     card.tabIndex = 0;
     card.setAttribute('aria-label', (origIdx + 1) + '. ' + item.title + ' (' + item.level + ')');
-    card.style.animationDelay = ((staggerIndex % 6) * 60) + 'ms';
 
     var numStr = (origIdx + 1 < 10 ? '0' : '') + (origIdx + 1);
-
     var doneBadgeHtml = isDone ? '<span class="badge-done">✓ Done</span>' : '';
 
     card.innerHTML = 
       '<div class="card-top">' +
-        '<span class="card-num-big">' + numStr + '</span>' +
+        '<span class="card-num-big">#' + numStr + '</span>' +
         '<div class="card-badges">' +
           doneBadgeHtml +
-          '<span class="level-badge ' + item.level + '">' + item.level + '</span>' +
+          '<span class="level-badge">' + item.level + '</span>' +
         '</div>' +
       '</div>' +
       '<h2 class="card-title">' + item.title + '</h2>' +
@@ -1570,9 +1472,7 @@ function renderHome(){
           '<span>·</span>' +
           '<span class="card-est-time">~' + estMin + ' min</span>' +
         '</div>' +
-        '<button class="card-circle-btn" aria-label="Start Lesson ' + (origIdx + 1) + '" type="button" tabindex="-1">' +
-          '<svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>' +
-        '</button>' +
+        '<span class="card-cta-btn">Start lesson →</span>' +
       '</div>';
 
     card.addEventListener('click', function(){ openTopic(origIdx); });
@@ -1601,7 +1501,7 @@ $$('.filter-btn').forEach(function(btn){
 
 searchInput.addEventListener('input', renderHome);
 
-/* ---------------- Text & Geometry Measuring (Exactly 4 words per line) ---------------- */
+/* ---------------- Text & Geometry Measuring (Strictly 4 words per line) ---------------- */
 function buildText(topic){
   words = [];
   var frag = document.createDocumentFragment();
@@ -1686,7 +1586,6 @@ function openTopic(idx){
   readerView.hidden = false;
   readerVisible = true;
   document.documentElement.classList.add('in-reader');
-  document.body.classList.add('in-reader');
 
   alignToWord(0);
 
@@ -1697,7 +1596,6 @@ function openTopic(idx){
   ovCountdown.textContent = '3';
 
   var currentSession = sessionToken;
-  // Female voice says: "Speak slowly and clearly"
   speakPrompt(function(){
     if(currentSession !== sessionToken) return;
     runCountdown(3, currentSession);
@@ -1802,10 +1700,8 @@ function backToHome(){
   navbar.hidden = false;
   mainFooter.hidden = false;
   document.documentElement.classList.remove('in-reader');
-  document.body.classList.remove('in-reader');
   window.scrollTo(0, 0);
 
-  // Re-render home to update completed badges and progress road
   renderHome();
 }
 
